@@ -1,7 +1,7 @@
 {
-  "name": "fs-app-template",
-  "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "name": "production-tracker",
+  "version": "1.0.0",
+  "description": "Andrey's Cell 1 Production Tracker",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -17,8 +17,8 @@
     "test:dev:models": "npm run test:dev -- --grep=model",
     "test:dev:routes": "npm run test:dev -- --grep=route"
   },
-  "author": "Fullstack Academy of Code",
-  "license": "MIT",
+  "author": "Andrey Statkevskiy",
+  "license": "SEE LICENSE IN LICENSE file",
   "dependencies": {
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
