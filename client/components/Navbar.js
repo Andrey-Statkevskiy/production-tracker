@@ -5,7 +5,8 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>FS-App-Template</h1>
+    <img src="/logo.png" alt="PS Wave Relay Logo" />
+    <h1>Persistent Systems Production Tracker</h1>
     <nav>
       {isLoggedIn ? (
         <div>
