@@ -5,8 +5,25 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <img src="/logo.png" alt="PS Wave Relay Logo" />
-    <h1>Persistent Systems Production Tracker</h1>
+    <div className="navbar">
+      <div className="item col1">
+        <img src="/logo.png" style={{width: '75px' }} alt="PS Wave Relay Logo" />
+      </div>
+
+      <div className="item col2-top">Production Tracker</div>
+      <div className="item col2-bottom">User</div>
+
+      <div className="item col3-top">Station</div>
+      <div className="item col3-bottom">#-#</div>
+
+      <div className="item col4-top">Level</div>
+      <div className="item col4-bottom">#</div>
+
+      <div className="item col5-top">Running</div>
+      <div className="item col5-bottom">hh:mm:ss</div>
+
+      <div className="item col6"># Assemblies Pending</div>
+    </div>
     <nav>
       {isLoggedIn ? (
         <div>

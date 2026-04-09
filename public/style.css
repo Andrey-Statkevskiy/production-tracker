@@ -21,3 +21,58 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.navbar {
+  display: grid;
+
+  grid-template-columns:
+    auto
+    1fr
+    0.5fr 0.5fr 0.5fr 0.5fr;
+
+  grid-template-rows: 1fr 1fr;
+
+  gap: 0; /* remove spacing */
+}
+
+/* Base styling */
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: lightgray; */
+}
+
+/* Column spans */
+.col1, .col6 {
+  grid-row: span 2;
+}
+
+.col1 {
+  aspect-ratio: 1 / 1;
+}
+
+/* Column placements */
+.col2-top { grid-column: 2; grid-row: 1; }
+.col2-bottom { grid-column: 2; grid-row: 2; }
+
+.col3-top { grid-column: 3; grid-row: 1; }
+.col3-bottom { grid-column: 3; grid-row: 2; }
+
+.col4-top { grid-column: 4; grid-row: 1; }
+.col4-bottom { grid-column: 4; grid-row: 2; }
+
+.col5-top { grid-column: 5; grid-row: 1; }
+.col5-bottom { grid-column: 5; grid-row: 2; }
+
+.col6 { grid-column: 6; }
+
+/* 🔥 Vertical dividers ONLY between 2-3, 3-4, 4-5, 5-6 */
+
+/* Apply border-right to columns 2–5 */
+.col2-top, .col2-bottom,
+.col3-top, .col3-bottom,
+.col4-top, .col4-bottom,
+.col5-top, .col5-bottom {
+  border-right: 2px solid #0056A3; /* adjust thickness/color */
+}
