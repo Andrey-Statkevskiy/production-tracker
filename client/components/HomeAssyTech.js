@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 /**
  * COMPONENT
  */
-export const Home = props => {
+export const HomeAssyTech = props => {
   const {username} = props
 
   return (
@@ -23,4 +23,4 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(Home)
+export default connect(mapState)(HomeAssyTech)
