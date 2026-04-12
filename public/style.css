@@ -67,12 +67,12 @@ form div {
 
 .col6 { grid-column: 6; }
 
-/* 🔥 Vertical dividers ONLY between 2-3, 3-4, 4-5, 5-6 */
+/* Vertical dividers ONLY between 2-3, 3-4, 4-5, 5-6 */
 
 /* Apply border-right to columns 2–5 */
-.col2-top, .col2-bottom,
 .col3-top, .col3-bottom,
 .col4-top, .col4-bottom,
-.col5-top, .col5-bottom {
-  border-right: 2px solid #0056A3; /* adjust thickness/color */
+.col5-top, .col5-bottom,
+.col6 {
+  border-left: 2px solid #0056A3; /* adjust thickness/color */
 }
