@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
+  <nav>
     <div className="navbar">
       <div className="item col1">
         <img src="/logo.png" style={{width: '75px' }} alt="PS Wave Relay Logo" />
@@ -23,8 +23,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <div className="item col5-bottom">hh:mm:ss</div>
 
       <div className="item col6"># Assemblies Pending</div>
-    </div>
-    <nav>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
@@ -40,9 +38,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
-    </nav>
-    <hr />
-  </div>
+      </div>
+  </nav>
 )
 
 /**
