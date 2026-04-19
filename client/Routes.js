@@ -1,38 +1,35 @@
-import React, {Component, Fragment} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import { Login, Signup } from './components/AuthForm';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Routes as RouterRoutes, Route, Navigate } from 'react-router-dom'
+import { Login, Signup } from './components/AuthForm'
 import SignInPage from './components/SignInPage'
-import HomeAssyTech from './components/HomeAssyTech';
-import {me} from './store'
+import HomeAssyTech from './components/HomeAssyTech'
+import { me } from './store'
 
-/**
- * COMPONENT
- */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const { isLoggedIn } = this.props
 
     return (
-      <div>
+      <RouterRoutes>
         {isLoggedIn ? (
-          <Switch>
-            <Route path="/home" component={HomeAssyTech} />
-            <Redirect to="/home" />
-          </Switch>
+          <>
+            <Route path="/home" element={<HomeAssyTech />} />
+            <Route path="*" element={<Navigate to="/home" />} />
+          </>
         ) : (
-          <Switch>
-            {/* <Route path='/' exact component={ Login } /> */}
-            <Route path='/' exact component={ SignInPage } />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-          </Switch>
+          <>
+            <Route path="/" element={<SignInPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </>
         )}
-      </div>
+      </RouterRoutes>
     )
   }
 }
@@ -58,4 +55,4 @@ const mapDispatch = dispatch => {
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes))
+export default connect(mapState, mapDispatch)(Routes);

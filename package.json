@@ -48,7 +48,7 @@
     "nodemon": "^1.19.4",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "react-router-dom": "^5.0.0",
+    "react-router-dom": "^7.14.1",
     "redux-logger": "^3.0.6",
     "supertest": "^4.0.2",
     "webpack": "^5.15.0",
