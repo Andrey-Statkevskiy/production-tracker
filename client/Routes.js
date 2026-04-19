@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Routes as RouterRoutes, Route, Navigate } from 'react-router-dom'
-import { Login, Signup } from './components/AuthForm'
 import SignInPage from './components/SignInPage'
 import HomeAssyTech from './components/HomeAssyTech'
 import { me } from './store'
@@ -24,8 +23,6 @@ class Routes extends Component {
         ) : (
           <>
             <Route path="/" element={<SignInPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
             <Route path="*" element={<Navigate to="/" />} />
           </>
         )}
