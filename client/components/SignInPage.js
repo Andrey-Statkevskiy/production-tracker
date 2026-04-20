@@ -1,27 +1,49 @@
-import {connect} from 'react-redux'
+import { useState } from 'react';
+import { useSelector, useDispatch} from 'react-redux'
 import {authenticate} from '../store'
 
 export const SignInPage = (props) => {
-  const {name, displayName, handleSubmit, error} = props;
+  const dispatch = useDispatch();
+
+  const error = useSelector(state => state.auth.error);
+
+  const [loginForm, setLoginForm] = useState({
+    username: '',
+    password: ''
+  })
+
+    const handleChange = (evt) => {
+    const { name, value } = evt.target
+
+    setLoginForm(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
+    dispatch(authenticate(loginForm.username, loginForm.password, 'login'))
+  }
 
   return (
     <div className='signInContainer'>
       <h1 style={{ margin: '50px 0 150px 0' }}>Sign-in as...</h1>
-      <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={handleSubmit} name='sign-in'>
         <div>
           <label htmlFor="username">
             <small>Username</small>
           </label>
-          <input name="username" type="text" />
+          <input name="username" type="text" value={loginForm.username} onChange={handleChange}/>
         </div>
         <div>
           <label htmlFor="password">
             <small>Password</small>
           </label>
-          <input name="password" type="password" />
+          <input name="password" type="password" value={loginForm.password} onChange={handleChange}/>
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit">Sign-in</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
@@ -29,23 +51,4 @@ export const SignInPage = (props) => {
   )
 }
 
-const mapStateToPropsLogin = state => {
-  return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.auth.error
-  }
-}
-
-const mapDispatchToPropsLogin = dispatch => {
-  return {
-    handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const username = evt.target.username.value
-      const password = evt.target.password.value
-      dispatch(authenticate(username, password, formName))
-    }
-  }
-}
-export default connect(mapStateToPropsLogin, mapDispatchToPropsLogin)(SignInPage);
+export default SignInPage;
