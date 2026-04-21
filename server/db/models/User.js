@@ -14,6 +14,16 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
+  },
+  employeeId: {
+    type: Sequelize.INTEGER,
+    unique: true,
+    allowNull: true
+  },
+  role: {
+    type: Sequelize.ENUM('technician', 'leader', 'tv'),
+    defaultValue: 'technician',
+    allowNull: false
   }
 })
 

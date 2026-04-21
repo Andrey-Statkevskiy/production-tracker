@@ -28,7 +28,7 @@ export const SignInPage = (props) => {
 
   return (
     <div className='signInContainer'>
-      <h1 style={{ margin: '50px 0 150px 0' }}>Sign-in as...</h1>
+      <h1 style={{ margin: '50px 0 150px 0', textAlign: 'center' }}>Welcome!<br />Please sign-in.</h1>
       <form onSubmit={handleSubmit} name='sign-in'>
         <div>
           <label htmlFor="username">
