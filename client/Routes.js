@@ -11,13 +11,13 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props
+    const { isLoggedIn, role } = this.props // приходит из mapstate
 
     return (
       <RouterRoutes>
         {isLoggedIn ? (
           <>
-            <Route path="/home" element={<HomeAssyTech />} />
+            <Route path="/home" element={(role === 'technician') ? <HomeAssyTech /> : console.log("not a tech")} /> {/* REMOVE LOG AFTER LEAD HOME IS CREATED*/}
             <Route path="*" element={<Navigate to="/home" />} />
           </>
         ) : (
@@ -34,11 +34,12 @@ class Routes extends Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = state => { // приходит из того, что было вызвано диспатчами в mapdispatch
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    role: state.auth.role // state это то что в конце, в reducer в store/auth.js, auth - это объект auth из reducer/setter action наверное
   }
 }
 
