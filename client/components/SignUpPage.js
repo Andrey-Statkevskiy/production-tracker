@@ -52,6 +52,7 @@ export const SignUpPage = ({ onSuccess, onCancel}) => {
           <input name="emplId" type="number" value={registerForm.emplId} onChange={handleChange}/>
         </div>
         <div>
+          <button onClick={()=> onCancel()}>Cancel</button><br />
           <button type="submit">Create New User</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
