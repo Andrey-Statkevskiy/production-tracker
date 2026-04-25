@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const formatRole = (roleName) => roleName ? roleName[0].toUpperCase() + roleName.slice(1) : ''
+
+const Navbar = ({handleClick, isLoggedIn, role}) => (
   <nav>
     <div className="navbar">
       <div className="item col1">
@@ -11,9 +13,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       </div>
 
       <div className="item col2-top">Production Tracker</div>
-      {/* <div className="item col2-bottom">User</div>
+      <div className="item col2-bottom">{role ? role[0].toUpperCase() + role.slice(1) : ''}</div>
 
-      <div className="item col3-top">Station</div>
+      {/*<div className="item col3-top">Station</div>
       <div className="item col3-bottom">#-#</div>
 
       <div className="item col4-top">Level</div>
@@ -45,7 +47,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    role: state.auth.role
   }
 }
 

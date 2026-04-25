@@ -19,7 +19,7 @@ class Routes extends Component {
       <RouterRoutes>
         {isLoggedIn ? (
           <>
-            <Route path="/home" element={(role === 'technician') ? <HomeAssyTech /> : (role === 'leader') ? <HomeLead /> : <HomeTv />} /> {/* REMOVE LOG AFTER LEAD HOME IS CREATED*/}
+            <Route path="/home" element={(role === 'technician') ? <HomeAssyTech /> : (role === 'leader') ? <HomeLead /> : <HomeTv />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </>
         ) : (
