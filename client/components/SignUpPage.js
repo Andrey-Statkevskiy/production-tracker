@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch} from 'react-redux'
 import {register} from '../store'
 
-export const SignUpPage = (props) => {
+export const SignUpPage = ({ onSuccess, onCancel}) => {
   const dispatch = useDispatch();
 
   const error = useSelector(state => state.auth.error);
@@ -26,6 +26,7 @@ export const SignUpPage = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault()
     dispatch(register(registerForm.username, registerForm.password, registerForm.role, Number(registerForm.emplId), 'signup'))
+    onSuccess(); //закроет форму у лидера в админке
   }
 
   return (
