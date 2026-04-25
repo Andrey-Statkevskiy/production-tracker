@@ -26,7 +26,7 @@ export const SignUpPage = ({ onAnyBtnClick }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault()
     dispatch(register(registerForm.username, registerForm.password, registerForm.role, Number(registerForm.emplId), 'signup'))
-    onAnyBtnClick(); //закроет форму у лидера в админке
+    onAnyBtnClick('user created'); //закроет форму у лидера в админке
   }
 
   return (
@@ -52,7 +52,7 @@ export const SignUpPage = ({ onAnyBtnClick }) => {
           <input name="emplId" type="number" value={registerForm.emplId} onChange={handleChange}/>
         </div>
         <div>
-          <button onClick={()=> onAnyBtnClick()}>Cancel</button><br />
+          <button onClick={()=> onAnyBtnClick('pressed cancel')}>Cancel</button><br />
           <button type="submit">Create New User</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}

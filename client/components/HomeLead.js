@@ -8,6 +8,17 @@ import SignUpPage from './SignUpPage'
 export const HomeLead = props => {
   const {username} = props // приходит из mapstate
   const [showNewUserForm, setShowNewUserForm] = useState(false);
+  const [message, setMessage] = useState(null)
+
+  const handleSuccess = (reason) => {
+    if (reason === 'user created') {
+    setMessage('User created successfully')
+  } else if (reason === 'pressed cancel') {
+    setMessage('User creation cancelled')
+  }
+    setTimeout(() => setMessage(null), 2000)
+    setShowNewUserForm(false)
+  }
 
   return (
     <div>
@@ -18,9 +29,10 @@ export const HomeLead = props => {
       </button>
       {showNewUserForm && (
         <SignUpPage
-          onAnyBtnClick={() => setShowNewUserForm(false)}
+          onAnyBtnClick={handleSuccess}
         />
       )}
+      {message && <div>{message}</div>}
     </div>
   )
 }
