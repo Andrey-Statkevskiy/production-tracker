@@ -9,9 +9,6 @@ export const HomeLead = props => {
   const {username} = props // приходит из mapstate
   const [showNewUserForm, setShowNewUserForm] = useState(false);
 
-  const handleSuccess = () => {
-    setShowNewUserForm(false) // закрыть форму после dispatch
-  }
   return (
     <div>
       <h3>Welcome, {username}</h3>
@@ -21,8 +18,7 @@ export const HomeLead = props => {
       </button>
       {showNewUserForm && (
         <SignUpPage
-          onSuccess={handleSuccess}
-          onCancel={() => setShowNewUserForm(false)}
+          onAnyBtnClick={() => setShowNewUserForm(false)}
         />
       )}
     </div>

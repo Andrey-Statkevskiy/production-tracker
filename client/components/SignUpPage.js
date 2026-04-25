@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch} from 'react-redux'
 import {register} from '../store'
 
-export const SignUpPage = ({ onSuccess, onCancel}) => {
+export const SignUpPage = ({ onAnyBtnClick }) => {
   const dispatch = useDispatch();
 
   const error = useSelector(state => state.auth.error);
@@ -26,7 +26,7 @@ export const SignUpPage = ({ onSuccess, onCancel}) => {
   const handleSubmit = (evt) => {
     evt.preventDefault()
     dispatch(register(registerForm.username, registerForm.password, registerForm.role, Number(registerForm.emplId), 'signup'))
-    onSuccess(); //закроет форму у лидера в админке
+    onAnyBtnClick(); //закроет форму у лидера в админке
   }
 
   return (
@@ -52,7 +52,7 @@ export const SignUpPage = ({ onSuccess, onCancel}) => {
           <input name="emplId" type="number" value={registerForm.emplId} onChange={handleChange}/>
         </div>
         <div>
-          <button onClick={()=> onCancel()}>Cancel</button><br />
+          <button onClick={()=> onAnyBtnClick()}>Cancel</button><br />
           <button type="submit">Create New User</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
