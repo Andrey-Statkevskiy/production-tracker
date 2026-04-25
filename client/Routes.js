@@ -17,7 +17,7 @@ class Routes extends Component {
       <RouterRoutes>
         {isLoggedIn ? (
           <>
-            <Route path="/home" element={(role === 'technician') ? <HomeAssyTech /> : console.log("not a tech")} /> {/* REMOVE LOG AFTER LEAD HOME IS CREATED*/}
+            <Route path="/home" element={(role === 'technician') ? <HomeAssyTech /> : (role === 'leader') ? console.log("leader home page") : console.log("tv home page")} /> {/* REMOVE LOG AFTER LEAD HOME IS CREATED*/}
             <Route path="*" element={<Navigate to="/home" />} />
           </>
         ) : (
