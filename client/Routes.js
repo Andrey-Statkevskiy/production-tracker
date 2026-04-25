@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Routes as RouterRoutes, Route, Navigate } from 'react-router-dom'
 import SignInPage from './components/SignInPage'
 import HomeAssyTech from './components/HomeAssyTech'
+import HomeLead from './components/HomeLead'
+import HomeTv from './components/HomeTv'
 import { me } from './store'
 
 class Routes extends Component {
@@ -17,7 +19,7 @@ class Routes extends Component {
       <RouterRoutes>
         {isLoggedIn ? (
           <>
-            <Route path="/home" element={(role === 'technician') ? <HomeAssyTech /> : (role === 'leader') ? console.log("leader home page") : console.log("tv home page")} /> {/* REMOVE LOG AFTER LEAD HOME IS CREATED*/}
+            <Route path="/home" element={(role === 'technician') ? <HomeAssyTech /> : (role === 'leader') ? <HomeLead /> : <HomeTv />} /> {/* REMOVE LOG AFTER LEAD HOME IS CREATED*/}
             <Route path="*" element={<Navigate to="/home" />} />
           </>
         ) : (
