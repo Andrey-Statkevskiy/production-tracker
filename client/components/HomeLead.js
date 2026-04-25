@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import SignUpPage from './SignUpPage'
 
 /**
  * COMPONENT
@@ -10,6 +11,7 @@ export const HomeLead = props => {
   return (
     <div>
       <h3>Welcome, {username}</h3>
+      <SignUpPage />
     </div>
   )
 }
