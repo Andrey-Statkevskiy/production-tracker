@@ -23,10 +23,16 @@ export const SignUpPage = ({ onAnyBtnClick }) => {
     }))
   }
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault()
-    dispatch(register(registerForm.username, registerForm.password, registerForm.role, Number(registerForm.emplId), 'signup'))
-    onAnyBtnClick('user created'); //закроет форму у лидера в админке
+    try {
+      const employeeId =
+        registerForm.emplId === ''
+          ? null
+          : Number(registerForm.emplId)
+      await dispatch(register(registerForm.username, registerForm.password, registerForm.role, employeeId, 'signup'))
+      onAnyBtnClick('user created'); //закроет форму у лидера в админке
+    } catch (err) {}
   }
 
   return (
@@ -55,7 +61,7 @@ export const SignUpPage = ({ onAnyBtnClick }) => {
           <button onClick={()=> onAnyBtnClick('pressed cancel')}>Cancel</button><br />
           <button type="submit">Create New User</button>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        {error && <div>{error}</div>}
       </form>
     </div>
   )

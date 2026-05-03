@@ -21,9 +21,13 @@ export const SignInPage = (props) => {
     }))
   }
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async(evt) => {
     evt.preventDefault()
-    dispatch(authenticate(loginForm.username, loginForm.password, 'login'))
+    try {
+      await dispatch(authenticate(loginForm.username, loginForm.password, 'login'))
+    } catch (err) {
+      
+    }
   }
 
   return (
@@ -45,7 +49,7 @@ export const SignInPage = (props) => {
         <div>
           <button type="submit">Sign-in</button>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        {error && <div> {error} </div>}
       </form>
     </div>
   )

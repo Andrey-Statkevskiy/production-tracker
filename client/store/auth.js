@@ -7,11 +7,15 @@ const TOKEN = 'token'
  * ACTION TYPES
  */
 const SET_AUTH = 'SET_AUTH'
-
+const SET_AUTH_ERROR = 'SET_AUTH_ERROR'
 /**
  * ACTION CREATORS
  */
 const setAuth = auth => ({type: SET_AUTH, auth})
+export const setAuthError = (error) => ({
+  type: SET_AUTH_ERROR,
+  error
+})
 
 /**
  * THUNK CREATORS
@@ -34,7 +38,8 @@ export const authenticate = (username, password, method) => async dispatch => {
     window.localStorage.setItem(TOKEN, res.data.token)
     dispatch(me())
   } catch (authError) {
-    return dispatch(setAuth({error: authError}))
+    dispatch(setAuthError(authError.response?.data || 'Login failed'))
+    throw authError 
   }
 }
 
@@ -43,7 +48,8 @@ export const register = (username, password, role, employeeId, method) => async 
     const res = await axios.post(`/auth/${method}`, {username, password, role, employeeId})
     dispatch(me())
   } catch (authError) {
-    return dispatch(setAuth({error: authError}))
+    dispatch(setAuthError(authError.response?.data || 'User creation failed'))
+    throw authError 
   }
 }
 
@@ -52,7 +58,7 @@ export const changePass = (id, currentPass, newPass, confirmNewPass, method) => 
     const res = await axios.post(`/auth/${method}`, {id, currentPass, newPass, confirmNewPass})
     dispatch(me())
   } catch (authError) {
-    return dispatch(setAuth({error: authError}))
+    throw authError
   }
 }
 
@@ -71,7 +77,17 @@ export const logout = () => {
 export default function(state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
-      return action.auth
+      return {
+        ...action.auth,
+        error: null // 👈 очищаем ошибку при успехе
+      }
+
+    case SET_AUTH_ERROR:
+      return {
+        ...state,
+        error: action.error // 👈 добавляем ошибку, НЕ затирая user
+      }
+
     default:
       return state
   }

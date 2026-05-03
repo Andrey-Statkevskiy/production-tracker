@@ -30,14 +30,21 @@ router.post('/changePass', async (req, res, next) => {
   try {
     const { id, currentPass, newPass, confirmNewPass } = req.body
     const user = await User.findOne({ where: { id: id } });
+    let error
     if (!user) {
-      throw Error("User not found.")
+      error = new Error("User not found.")
+      error.status = 400
+      throw error
     }
     if (!(await bcrypt.compare(currentPass, user.dataValues.password))) {
-      throw Error("Current password doesn't match!")
+      error = new Error("Current password doesn't match!")
+      error.status = 400
+      throw error
     }
     if (newPass !== confirmNewPass) {
-      throw Error("Passwords must match!")
+      error = new Error("New passwords must match!")
+      error.status = 400
+      throw error
     }
 
     const newHashedPass = await bcrypt.hash(newPass, 5)

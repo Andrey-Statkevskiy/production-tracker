@@ -3,6 +3,7 @@ import { useSelector, useDispatch} from 'react-redux'
 import { changePass } from '../store';
 
 export const ChangePassPage = ({ onAnyBtnClick }) => {
+  const [errorMsg, setErrorMsg] = useState("")
   const dispatch = useDispatch();
 
   const error = useSelector(state => state.auth.error);
@@ -23,10 +24,15 @@ export const ChangePassPage = ({ onAnyBtnClick }) => {
     }))
   }
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault()
-    dispatch(changePass(userId, changePassForm.currentPass, changePassForm.newPass, changePassForm.confirmNewPass, 'changePass'))
-    onAnyBtnClick('pass changed'); //закроет форму у лидера в админке
+    setErrorMsg("")
+    try {
+      await dispatch(changePass(userId, changePassForm.currentPass, changePassForm.newPass, changePassForm.confirmNewPass, 'changePass'))
+      onAnyBtnClick('pass changed'); //закроет форму у лидера в админке
+    } catch (err) {
+      setErrorMsg(err.response?.data || 'Error: Check passwords and try again.')
+    }
   }
 
   return (
@@ -55,7 +61,7 @@ export const ChangePassPage = ({ onAnyBtnClick }) => {
           <button onClick={()=> onAnyBtnClick('pressed cancel')}>Cancel</button><br />
           <button type="submit">Change Password</button>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        {errorMsg && <div> {errorMsg} </div>}
       </form>
     </div>
   )
