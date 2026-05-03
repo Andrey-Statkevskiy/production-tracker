@@ -47,6 +47,15 @@ export const register = (username, password, role, employeeId, method) => async 
   }
 }
 
+export const changePass = (id, currentPass, newPass, confirmNewPass, method) => async dispatch => {
+  try {
+    const res = await axios.post(`/auth/${method}`, {id, currentPass, newPass, confirmNewPass})
+    dispatch(me())
+  } catch (authError) {
+    return dispatch(setAuth({error: authError}))
+  }
+}
+
 export const logout = () => {
   window.localStorage.removeItem(TOKEN)
   history.push('/login')

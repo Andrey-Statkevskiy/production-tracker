@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {connect} from 'react-redux'
 import SignUpPage from './SignUpPage'
+import ChangePassPage from './ChangePassPage'
 
 /**
  * COMPONENT
@@ -8,16 +9,28 @@ import SignUpPage from './SignUpPage'
 export const HomeLead = props => {
   const {username} = props // приходит из mapstate
   const [showNewUserForm, setShowNewUserForm] = useState(false);
-  const [message, setMessage] = useState(null)
+  const [showChangePassForm, setShowChangePassForm] = useState(false);
+  const [newUserMsg, setNewUserMsg] = useState(null)
+  const [changePassMsg, setChangePassMsg] = useState(null)
 
-  const handleSuccess = (reason) => {
+  const handleNewUser = (reason) => {
     if (reason === 'user created') {
-    setMessage('User created successfully')
+    setNewUserMsg('User created successfully')
   } else if (reason === 'pressed cancel') {
-    setMessage('User creation cancelled')
+    setNewUserMsg('User creation cancelled')
   }
-    setTimeout(() => setMessage(null), 2000)
+    setTimeout(() => setNewUserMsg(null), 2000)
     setShowNewUserForm(false)
+  }
+
+  const handleChangePass = (reason) => {
+    if (reason === 'pass changed') {
+    setChangePassMsg('Password changed successfully')
+  } else if (reason === 'pressed cancel') {
+    setChangePassMsg('Password change cancelled')
+  }
+    setTimeout(() => setChangePassMsg(null), 2000)
+    setShowChangePassForm(false)
   }
 
   return (
@@ -29,10 +42,20 @@ export const HomeLead = props => {
       </button>
       {showNewUserForm && (
         <SignUpPage
-          onAnyBtnClick={handleSuccess}
+          onAnyBtnClick={handleNewUser}
         />
       )}
-      {message && <div>{message}</div>}
+      {newUserMsg && <div>{newUserMsg}</div>}
+
+      <button onClick={() => setShowChangePassForm(true)}>
+        Change Password
+      </button>
+      {showChangePassForm && (
+        <ChangePassPage
+          onAnyBtnClick={handleChangePass}
+        />
+      )}
+      {changePassMsg && <div>{changePassMsg}</div>}
     </div>
   )
 }
