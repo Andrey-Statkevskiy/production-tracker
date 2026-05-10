@@ -3,12 +3,20 @@
 const db = require('./db')
 
 const User = require('./models/User')
+const WorkSession = require('./models/WorkSession')
 
 //associations could go here!
+User.hasMany(WorkSession, {
+  foreignKey: 'userId',
+})
+WorkSession.belongsTo(User, {
+  foreignKey: 'userId',
+})
 
 module.exports = {
   db,
   models: {
     User,
+    WorkSession
   },
 }
