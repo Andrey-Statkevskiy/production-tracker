@@ -23,17 +23,11 @@ const Navbar = ({handleClick, isLoggedIn, role}) => (
       <div className="item col5-bottom">hh:mm:ss</div>
 
       <div className="item col6"># Assemblies Pending</div> */}
-      {isLoggedIn ? (
+      {isLoggedIn &&
         <div>
-          {/* The navbar will show these links after you log in */}
           <a href="#" onClick={handleClick}>Logout</a>
         </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-        </div>
-      )}
+      }
       </div>
   </nav>
 )

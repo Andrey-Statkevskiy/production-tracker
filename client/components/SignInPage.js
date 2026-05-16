@@ -32,8 +32,8 @@ export const SignInPage = (props) => {
 
   return (
     <div className='signInContainer'>
-      <h1 style={{ margin: '50px 0 150px 0', textAlign: 'center' }}>Welcome!<br />Please sign-in.</h1>
-      <form onSubmit={handleSubmit} name='sign-in'>
+      <h1 style={{ margin: '50px 0 75px 0', textAlign: 'center' }}>Welcome!<br />Please sign-in.</h1>
+      <form  className='signInForm' onSubmit={handleSubmit} name='sign-in'>
         <div>
           <label htmlFor="username">
             <small>Username</small>
@@ -46,10 +46,10 @@ export const SignInPage = (props) => {
           </label>
           <input name="password" type="password" value={loginForm.password} onChange={handleChange}/>
         </div>
-        <div>
-          <button type="submit">Sign-in</button>
+        <div className='button-group'>
+          <button className='btn btn-blue' type="submit">Sign-in</button>
         </div>
-        {error && <div> {error} </div>}
+        {error && <div className='errorTxt'> {error} </div>}
       </form>
     </div>
   )

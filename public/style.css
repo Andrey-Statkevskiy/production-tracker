@@ -83,11 +83,76 @@ form div {
   align-items: center;
 }
 
+.signInForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.signInForm input {
+  padding: 10px;
+  border: 1px solid #0056A3;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #0056A3
+}
+
+.signInForm input:focus {
+  background-color: #afdaff;
+  outline: none;
+}
+
 .signInButtonContainer {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: space-around;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Общий стиль кнопок */
+.btn {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Цвета */
+.btn-blue {
+  background-color: #0056A3;
+}
+
+.btn-blue:active {
+  background-color: #0057a390;
+}
+
+.btn-green {
+  background-color: #00a326;
+}
+
+.btn-green:active {
+  background-color: #00a3268e;
+}
+
+.btn-red {
+  background-color: #a30000;
+}
+
+.btn-red:active {
+  background-color: #a300009a;
+}
+
+.errorTxt {
+  color: #a30000;
+  font-size: 13px;
 }
 
 .blueButton {
