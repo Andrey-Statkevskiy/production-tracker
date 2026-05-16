@@ -4,6 +4,10 @@ body {
   background-color: rgb(202, 202, 202);
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 a {
   text-decoration: none;
 }
