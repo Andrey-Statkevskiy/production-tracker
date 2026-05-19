@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useTimer } from '../components/utils/useTimer'
+import { formatTime } from '../components/utils/formatTime'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, role, station, level}) => (
-  <nav>
+const Navbar = ({handleClick, isLoggedIn, role, station, level, startRunAt}) => {
+  const elapsedTime = useTimer(startRunAt)
+
+  return (
+    <nav>
     <div className="navbar">
       <div className="item col1">
         <img src="/logo.png" style={{width: '75px' }} alt="PS Wave Relay Logo" />
@@ -21,10 +26,10 @@ const Navbar = ({handleClick, isLoggedIn, role, station, level}) => (
           <div className={`item col4-top ${!level ? 'hidden' : ''}`}>Level</div>
           <div className={`item col4-bottom ${!level ? 'hidden' : ''}`}>{level}</div>
 
-          {/*<div className="item col5-top">Running</div>
-          <div className="item col5-bottom">hh:mm:ss</div>
+          <div className={`item col5-top ${!startRunAt ? 'hidden' : ''}`}>Running</div>
+          <div className={`item col5-bottom ${!startRunAt ? 'hidden' : ''}`}>{startRunAt ? formatTime(elapsedTime) : 'hh:mm:ss'}</div>
 
-          <div className="item col6"># Assemblies Pending</div> */}
+          {/* <div className="item col6"># Assemblies Pending</div> */}
         </>
       )}
       {isLoggedIn &&
@@ -34,7 +39,8 @@ const Navbar = ({handleClick, isLoggedIn, role, station, level}) => (
       }
       </div>
   </nav>
-)
+  )
+}
 
 /**
  * CONTAINER
@@ -45,6 +51,7 @@ const mapState = state => {
     role: state.auth.role,
     station: state.session.activeSession?.station,
     level: state.session.activeSession?.level,
+    startRunAt: state.session.activeSession?.startedRunAt,
   }
 }
 
