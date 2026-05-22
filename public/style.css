@@ -169,3 +169,60 @@ form div {
   margin: 50px;
   width: 12em;
 }
+
+.workScreenContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-instructions-panel {
+  width: 30%;
+  overflow: auto;
+  transition: width 0.4s ease;
+}
+
+.pdf-panel {
+  transition: width 0.4s ease;
+  overflow: hidden;
+}
+
+.collapse-handle {
+  width: 30px;
+  min-width: 30px;
+  background: #222;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  z-index: 10;
+}
+
+.collapse-handle {
+  transition: transform 0.3s ease;
+}
+
+.workScreenContainer.open .collapse-handle {
+  transform: rotate(180deg);
+}
+
+.workScreenContainer.open .left-instructions-panel {
+  width: 30%;
+}
+
+.workScreenContainer.open .pdf-panel {
+  width: 68%;
+}
+.workScreenContainer.open .pdf-panel iframe{
+  height: 83vh;
+  width: 64em;
+}
+
+.workScreenContainer.collapsed .left-instructions-panel {
+  width: calc(100% - 30px); 
+}
+
+.workScreenContainer.collapsed .pdf-panel {
+  width: 0;
+}

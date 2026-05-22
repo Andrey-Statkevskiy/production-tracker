@@ -30,8 +30,6 @@ export const HomeAssyTech = props => {
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
-
       {!isTechWorking && (
         <button onClick={() => setShowChangePassForm(true)}>
           Change Password

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { startSession } from '../../store/sessions'
 
 const StartScreen = () => {
   const dispatch = useDispatch()
+  const username = useSelector(state => state.auth.username)
 
   const [station, setStation] = useState('1-1')
   const [level, setLevel] = useState(1)
@@ -14,7 +15,8 @@ const StartScreen = () => {
 
   return (
     <div>
-      <h2>Start Work</h2>
+      <h2>Welcome, {username}</h2>
+      <h3>Start Work</h3>
 
       <div>
         <label>Station:</label>
