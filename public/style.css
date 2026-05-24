@@ -173,6 +173,7 @@ form div {
 .workScreenContainer {
   display: flex;
   flex-direction: row;
+  padding: 10px;
 }
 
 .left-instructions-panel {
@@ -212,11 +213,11 @@ form div {
 }
 
 .workScreenContainer.open .pdf-panel {
-  width: 68%;
+  width: 100%;
 }
 .workScreenContainer.open .pdf-panel iframe{
   height: 83vh;
-  width: 64em;
+  width: 70em;
 }
 
 .workScreenContainer.collapsed .left-instructions-panel {
