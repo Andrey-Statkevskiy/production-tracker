@@ -33,7 +33,7 @@ const Navbar = ({handleClick, isLoggedIn, role, station, level, startRunAt}) => 
         </>
       )}
       {isLoggedIn &&
-        <div>
+        <div className="item col6">
           <a href="#" onClick={handleClick}>Logout</a>
         </div>
       }
