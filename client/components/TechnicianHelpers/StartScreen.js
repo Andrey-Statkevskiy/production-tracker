@@ -7,8 +7,13 @@ const StartScreen = () => {
 
   const [station, setStation] = useState('Station')
   const [level, setLevel] = useState(0)
+  const [errMsg, setErrMsg] = useState('')
 
   const handleStart = () => {
+    if (station === 'Station' || level === 0) {
+      setErrMsg('Select level/station and try again')
+      return
+    }
     dispatch(startSession(station, level))
   }
 
@@ -34,8 +39,9 @@ const StartScreen = () => {
       </div>
 
       <div>
-        <button className='startSceenStartBtn' onClick={handleStart}>Start Run</button>
+        <button className='startScreenStartBtn' onClick={handleStart}>Start Run</button>
       </div>
+      {errMsg && <p className='startScreenErr'>{errMsg}</p>}
 
     </div>
   )

@@ -202,7 +202,7 @@ form div {
   background-color: #003f77;
 }
 
-.startSceenStartBtn{
+.startScreenStartBtn{
   padding: 10px 25px;
   background-color: #00a326;
   border: none;
@@ -212,8 +212,13 @@ form div {
   cursor: pointer;
   text-align: center;
 }
-.startSceenStartBtn:hover{
+.startScreenStartBtn:hover{
   background-color: #006e1a;
+}
+
+.startScreenErr{
+  font-size: 20px;
+  font-weight: 400;
 }
 
 /* Job Run Screen */
