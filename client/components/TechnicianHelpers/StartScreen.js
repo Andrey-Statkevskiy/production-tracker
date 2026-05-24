@@ -39,7 +39,7 @@ const StartScreen = () => {
       </div>
 
       <div>
-        <button className='startScreenStartBtn' onClick={handleStart}>Start Run</button>
+        <button className='btn btn-green' onClick={handleStart}>Start Run</button>
       </div>
       {errMsg && <p className='startScreenErr'>{errMsg}</p>}
 

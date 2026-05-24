@@ -11,8 +11,8 @@ const CompleteScreen = () => {
   }
 
   return (
-    <div>
-      <h2>Complete Work</h2>
+    <div className='completeScreenContainer'>
+      <p className='completeScreenTitle'>Please scan all case serials that you assembled during this run</p>
 
       <input
         type="number"
@@ -21,7 +21,7 @@ const CompleteScreen = () => {
         onChange={e => setUnits(Number(e.target.value))}
       />
 
-      <button onClick={handleSubmit}>Complete Run</button>
+      <button className="btn btn-green" onClick={handleSubmit}>Complete Run</button>
     </div>
   )
 }

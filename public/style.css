@@ -139,13 +139,13 @@ form div {
 
 /* Consolidate Button Styling */
 .btn {
-  padding: 10px;
+  padding: 10px 25px;
   border: none;
   border-radius: 2px;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  text-align: center;
 }
 
 /* Colors */
@@ -153,7 +153,7 @@ form div {
   background-color: #0056A3;
 }
 
-.btn-blue:active {
+.btn-blue:hover {
   background-color: #00427b;
 }
 
@@ -161,7 +161,7 @@ form div {
   background-color: #00a326;
 }
 
-.btn-green:active {
+.btn-green:hover {
   background-color: #00721b;
 }
 
@@ -169,7 +169,7 @@ form div {
   background-color: #a30000;
 }
 
-.btn-red:active {
+.btn-red:hover {
   background-color: #710000;
 }
 
@@ -178,16 +178,6 @@ form div {
   font-size: 13px;
 }
 
-.blueButton {
-  background-color: #0056A3;
-  color: white;
-  border: 1px solid black;
-  padding: 12px 15px;
-  border-radius: 3px;
-  text-align: center;
-  margin: 50px;
-  width: 12em;
-}
 /* Job Start/Main Screen */
 
 .startScreenContainer{
@@ -219,20 +209,6 @@ form div {
 }
 .startScreenStationLevelDropdowns select:hover{
   background-color: #003f77;
-}
-
-.startScreenStartBtn{
-  padding: 10px 25px;
-  background-color: #00a326;
-  border: none;
-  border-radius: 2px;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-}
-.startScreenStartBtn:hover{
-  background-color: #006e1a;
 }
 
 .startScreenErr{
