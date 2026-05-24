@@ -21,7 +21,7 @@ const CompleteScreen = () => {
         onChange={e => setUnits(Number(e.target.value))}
       />
 
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit}>Complete Run</button>
     </div>
   )
 }

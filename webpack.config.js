@@ -18,7 +18,11 @@ module.exports = {
             ['@babel/preset-react', { runtime: 'automatic' }]
           ]
         }
-      }
+      },
+      {
+        test: /\.scss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
     ]
   }
 }

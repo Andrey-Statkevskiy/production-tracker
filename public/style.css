@@ -141,7 +141,7 @@ form div {
 .btn {
   padding: 10px;
   border: none;
-  border-radius: 6px;
+  border-radius: 2px;
   color: white;
   font-size: 14px;
   cursor: pointer;
@@ -154,7 +154,7 @@ form div {
 }
 
 .btn-blue:active {
-  background-color: #0057a390;
+  background-color: #00427b;
 }
 
 .btn-green {
@@ -162,7 +162,7 @@ form div {
 }
 
 .btn-green:active {
-  background-color: #00a3268e;
+  background-color: #00721b;
 }
 
 .btn-red {
@@ -170,7 +170,7 @@ form div {
 }
 
 .btn-red:active {
-  background-color: #a300009a;
+  background-color: #710000;
 }
 
 .errorTxt {
@@ -252,6 +252,7 @@ form div {
   width: 30%;
   overflow: auto;
   transition: width 0.4s ease;
+  text-align: center;
 }
 
 .pdf-panel {
