@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   color: #0056A3;
   background-color: rgb(202, 202, 202);
 }
@@ -118,7 +118,7 @@ form div {
   gap: 10px;
 }
 
-/* Общий стиль кнопок */
+/* Consolidate Button Styling */
 .btn {
   padding: 10px;
   border: none;
@@ -129,7 +129,7 @@ form div {
   transition: background-color 0.2s ease;
 }
 
-/* Цвета */
+/* Colors */
 .btn-blue {
   background-color: #0056A3;
 }
@@ -169,6 +169,54 @@ form div {
   margin: 50px;
   width: 12em;
 }
+/* Job Start/Main Screen */
+
+.startScreenContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.startScreenTitle{
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.startScreenStationLevelDropdowns{
+  display: flex;
+  flex-direction: row;
+}
+
+.startScreenStationLevelDropdowns select{
+  margin: 130px 70px 100px 70px;
+  padding: 10px 40px 10px 25px;
+  background-color: #0056A3;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+.startScreenStationLevelDropdowns select:hover{
+  background-color: #003f77;
+}
+
+.startSceenStartBtn{
+  padding: 10px 25px;
+  background-color: #00a326;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+.startSceenStartBtn:hover{
+  background-color: #006e1a;
+}
+
+/* Job Run Screen */
 
 .workScreenContainer {
   display: flex;
@@ -227,3 +275,5 @@ form div {
 .workScreenContainer.collapsed .pdf-panel {
   width: 0;
 }
+
+/* Run Completion Screen  */
