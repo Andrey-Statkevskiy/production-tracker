@@ -51,7 +51,7 @@ export const startSession = (station, level) => async dispatch => {
   }
 }
 
-export const completeSession = (unitsCount) => async dispatch => {
+export const completeSession = (sessionId, scans, unitsCount) => async dispatch => {
   const config = {
     headers: {
         Authorization: localStorage.getItem('token')
@@ -60,8 +60,8 @@ export const completeSession = (unitsCount) => async dispatch => {
   try {
     dispatch({ type: SET_LOADING })
 
-    await axios.post('/api/sessions/complete', {
-      unitsCount
+    await axios.post(`/api/sessions/${sessionId}/complete`, {
+     scans, unitsCount
     }, config)
 
     dispatch({ type: CLEAR_SESSION })
