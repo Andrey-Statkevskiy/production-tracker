@@ -41,7 +41,6 @@ export default function CompleteWork() {
 
   const [units, setUnits] = useState(0);
   const [rows, setRows] = useState([]);
-  const [errMsg, setErrMsg] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
 
   const inputRefs = useRef([]);
@@ -118,7 +117,7 @@ export default function CompleteWork() {
   return (
     <div className="completeScreenContainer">
       <p className="completeScreenTitle">
-        Please scan all case serials that you assembled during this run
+        Please input amount and scan all case serials <br />that you assembled during this run
       </p>
 
       <input 
@@ -134,7 +133,6 @@ export default function CompleteWork() {
           <button className="btn btn-green" onClick={handleSubmit}>
             Complete Run
           </button>
-          {errMsg && <p className="startScreenErr">{errMsg}</p>}
         </>
       )}
 
@@ -143,7 +141,7 @@ export default function CompleteWork() {
           <thead>
             <tr>
               <th>#</th>
-              <th>Scan Code</th>
+              <th>Serial Number</th>
             </tr>
           </thead>
 
@@ -171,10 +169,9 @@ export default function CompleteWork() {
 
       {allFilled && (
         <>
-          <button className="btn btn-green" onClick={handleSubmit}>
+          <button style={{marginTop: '15px' }} className="btn btn-green" onClick={handleSubmit}>
             Complete Run
           </button>
-          {errMsg && <p className="startScreenErr">{errMsg}</p>}
         </>
       )}
     </div>

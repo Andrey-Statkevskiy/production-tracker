@@ -298,6 +298,7 @@ form div {
 .completeScreenTitle{
   font-size: 28px;
   font-weight: 400;
+  text-align: center;
 }
 
 .completeScreenErr{
