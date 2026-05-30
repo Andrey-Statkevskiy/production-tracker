@@ -8,7 +8,7 @@ const StartScreen = () => {
   const [station, setStation] = useState('Station')
   const [level, setLevel] = useState(0)
   const [errMsg, setErrMsg] = useState('')
-
+  const availableStations = ['1-3', '1-5', '1-7', '1-9', '1-11'];
   const handleStart = () => {
     if (station === 'Station' || level === 0) {
       setErrMsg('Select level/station and try again')
@@ -24,10 +24,8 @@ const StartScreen = () => {
       <div className='startScreenStationLevelDropdowns'>
         <select value={station} onChange={e => setStation(e.target.value)}>
           <option key={0} value={'1-0'}>{'Station'}</option>
-          {[...Array(10)].map((_, i) => (
-            <option key={i} value={`1-${i + 1}`}>
-              {`1-${i + 1}`}
-            </option>
+          {availableStations.map(s => (
+            <option key={s} value={s}>{s}</option>
           ))}
         </select>
 
