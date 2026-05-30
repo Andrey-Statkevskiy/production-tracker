@@ -8,7 +8,7 @@ const StartScreen = () => {
   const [station, setStation] = useState('Station')
   const [level, setLevel] = useState(0)
   const [errMsg, setErrMsg] = useState('')
-  const availableStations = ['1-3', '1-5', '1-7', '1-9', '1-11'];
+  const availableStations = ['1-3', '1-5', '1-7', '1-9', '1-11']; //lvl1: 1-9, 1-11; lvl2: (1-3), 1-5, 1-7
   const handleStart = () => {
     if (station === 'Station' || level === 0) {
       setErrMsg('Select level/station and try again')
