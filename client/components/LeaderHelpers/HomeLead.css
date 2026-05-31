@@ -1,26 +1,30 @@
 .homeLeadContainer {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.columnTitle {
-    font-size: 28px;
-    font-weight: 400;
-    margin: 25px 0 0 0;
-    text-align: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .controlsContainer {
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  align-items: center;
+}
+.columnTitle {
+  font-size: 28px;
+  font-weight: 400;
+  margin: 25px 0 0 0;
+  text-align: center;
+}
+
+.leaderOnlyControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .progressContainer {
-    display: flex;
-    flex-direction: column;
-    width: 70%; /* remove/adjust it is not adaptive */
+  display: flex;
+  flex-direction: column;
+  width: 70%; /* remove/adjust it is not adaptive */
 }
-
