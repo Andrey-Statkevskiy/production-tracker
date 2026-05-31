@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { changePass } from '../store';
 
 export const ChangePassPage = ({ onAnyBtnClick }) => {
@@ -29,7 +29,7 @@ export const ChangePassPage = ({ onAnyBtnClick }) => {
     setErrorMsg("")
     try {
       await dispatch(changePass(userId, changePassForm.currentPass, changePassForm.newPass, changePassForm.confirmNewPass, 'changePass'))
-      onAnyBtnClick('pass changed'); //закроет форму у лидера в админке
+      onAnyBtnClick('pass changed'); //will close the form in the control panel
     } catch (err) {
       setErrorMsg(err.response?.data || 'Error: Check passwords and try again.')
     }
