@@ -1,0 +1,26 @@
+.homeLeadContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.columnTitle {
+    font-size: 28px;
+    font-weight: 400;
+    margin: 25px 0 0 0;
+    text-align: center;
+}
+
+.controlsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    align-items: center;
+}
+
+.progressContainer {
+    display: flex;
+    flex-direction: column;
+    width: 70%; /* remove/adjust it is not adaptive */
+}
+

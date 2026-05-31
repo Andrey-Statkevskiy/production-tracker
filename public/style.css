@@ -139,6 +139,7 @@ form div {
 
 /* Consolidate Button Styling */
 .btn {
+  margin: 15px;
   padding: 10px 25px;
   border: none;
   border-radius: 2px;
@@ -146,6 +147,7 @@ form div {
   font-size: 16px;
   cursor: pointer;
   text-align: center;
+  width: 175px;
 }
 
 /* Colors */

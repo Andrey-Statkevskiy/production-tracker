@@ -1,3 +1,4 @@
+import './LeaderHelpers/HomeLead.css'
 import React, { useState } from 'react'
 import {connect} from 'react-redux'
 import SignUpPage from './SignUpPage'
@@ -7,7 +8,7 @@ import ChangePassPage from './ChangePassPage'
  * COMPONENT
  */
 export const HomeLead = props => {
-  const {username} = props // приходит из mapstate
+  const {username} = props // comes from mapstate
   const [showNewUserForm, setShowNewUserForm] = useState(false);
   const [showChangePassForm, setShowChangePassForm] = useState(false);
   const [newUserMsg, setNewUserMsg] = useState(null)
@@ -34,28 +35,44 @@ export const HomeLead = props => {
   }
 
   return (
-    <div>
-      <h3>Welcome, {username}</h3>
+    <div className='homeLeadContainer'>
+      <div className='controlsContainer'>
+        <p className='columnTitle'>Controls</p>
+        <button className='btn btn-blue' onClick={() => console.log("Set Target Btn clicked")}>
+          Set Targets
+        </button>
+        <button className='btn btn-blue' onClick={() => console.log("Reset Progress Btn clicked")}>
+          Reset Progress
+        </button>
+        <button className='btn btn-blue' onClick={() => console.log("View All Users Btn clicked")}>
+          View All Users
+        </button>
+        <button className='btn btn-blue' onClick={() => console.log("View/Export Data Btn clicked")}>
+          View/Export Data
+        </button>
+        <button className='btn btn-blue' onClick={() => setShowNewUserForm(true)}>
+          Create user
+        </button>
+        {showNewUserForm && (
+          <SignUpPage
+            onAnyBtnClick={handleNewUser}
+          />
+        )}
+        {newUserMsg && <div>{newUserMsg}</div>}
 
-      <button onClick={() => setShowNewUserForm(true)}>
-        Create user
-      </button>
-      {showNewUserForm && (
-        <SignUpPage
-          onAnyBtnClick={handleNewUser}
-        />
-      )}
-      {newUserMsg && <div>{newUserMsg}</div>}
-
-      <button onClick={() => setShowChangePassForm(true)}>
-        Change Password
-      </button>
-      {showChangePassForm && (
-        <ChangePassPage
-          onAnyBtnClick={handleChangePass}
-        />
-      )}
-      {changePassMsg && <div>{changePassMsg}</div>}
+        <button className='btn btn-blue' onClick={() => setShowChangePassForm(true)}>
+          Change Password
+        </button>
+        {showChangePassForm && (
+          <ChangePassPage
+            onAnyBtnClick={handleChangePass}
+          />
+        )}
+        {changePassMsg && <div>{changePassMsg}</div>}
+      </div>
+      <div className='progressContainer'>
+        <p className='columnTitle'>Progress</p>
+      </div>
     </div>
   )
 }
