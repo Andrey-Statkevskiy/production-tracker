@@ -45,33 +45,6 @@ router.get('/active', async (req, res, next) => {
   }
 })
 
-// router.post('/complete', async (req, res, next) => {
-//   try {
-//     const { unitsCount } = req.body
-
-//     const session = await WorkSession.findOne({
-//       where: {
-//         userId: req.user.id,
-//         status: 'IN_PROGRESS'
-//       }
-//     })
-
-//     if (!session) {
-//       return res.status(404).send('No active session')
-//     }
-
-//     await session.update({
-//       status: 'COMPLETED',
-//       endedRunAt: new Date(),
-//       unitsCount
-//     })
-
-//     res.json(session)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
 router.post("/:id/complete", async (req, res, next) => {
   try {
     const { scans, unitsCount } = req.body; // массив строк
@@ -95,7 +68,7 @@ router.post("/:id/complete", async (req, res, next) => {
     if (uniqueScans.length !== scans.length) {
       return res.status(400).send("Duplicate serials detected");
     }
-    // создаём записи
+    // create records
     const scanRecords = uniqueScans.map(serial => ({
       serial,
       workSessionId: session.id
@@ -104,7 +77,7 @@ router.post("/:id/complete", async (req, res, next) => {
     
     await TechScan.bulkCreate(scanRecords);
     
-    // можно обновить статус сессии
+    // update status of the session
     await WorkSession.update(
       {
         status: "COMPLETED",

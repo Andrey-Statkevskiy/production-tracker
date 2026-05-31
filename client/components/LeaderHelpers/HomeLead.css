@@ -28,3 +28,16 @@
   flex-direction: column;
   width: 70%; /* remove/adjust it is not adaptive */
 }
+
+/*Set Targets Helper Component*/
+
+.setTargetsColumn {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+}
+
+.setTargetByLevel {
+  
+}

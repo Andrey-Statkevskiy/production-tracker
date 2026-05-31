@@ -4,6 +4,7 @@ module.exports = router
 
 router.use('/users', require('./users'))
 router.use('/sessions', authMiddleware, require('./sessions'))
+router.use('/targets', authMiddleware, require('./targets'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')

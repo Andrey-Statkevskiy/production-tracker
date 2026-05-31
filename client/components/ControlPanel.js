@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import SignUpPage from "./SignUpPage";
 import ChangePassPage from "./ChangePassPage";
+import { useNavigate } from "react-router-dom";
 
 export const ControlPanel = ({ role }) => {
   const [showNewUserForm, setShowNewUserForm] = useState(false);
@@ -10,6 +11,7 @@ export const ControlPanel = ({ role }) => {
   const [newUserMsg, setNewUserMsg] = useState(null);
   const [changePassMsg, setChangePassMsg] = useState(null);
 
+  const navigate = useNavigate();
   const handleNewUser = (reason) => {
     if (reason === "user created") {
       setNewUserMsg("User created successfully");
@@ -36,7 +38,7 @@ export const ControlPanel = ({ role }) => {
         <div className="leaderOnlyControls">
           <button
             className="btn btn-blue"
-            onClick={() => console.log("Set Targets Btn clicked")}
+            onClick={() => navigate("/home/set-targets")}
           >
             Set Targets
           </button>

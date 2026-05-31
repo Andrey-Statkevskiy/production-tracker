@@ -7,12 +7,6 @@ import "./TechnicianHelpers/HomeAssyTech.css"
 export const HomeAssyTech = ({ username, activeSession }) => {
   const isTechWorking = !!activeSession;
 
-  // useEffect(() => {
-  //   if (isTechWorking && showChangePassForm) {
-  //     setShowChangePassForm(false)
-  //   }
-  // }, [isTechWorking])
-
   return (
     <div className="homeAssyTechContainer">
       {!isTechWorking && <ControlPanel />}
@@ -21,9 +15,6 @@ export const HomeAssyTech = ({ username, activeSession }) => {
   );
 };
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
     username: state.auth.username,

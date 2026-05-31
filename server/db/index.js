@@ -5,6 +5,7 @@ const db = require('./db')
 const User = require('./models/User')
 const WorkSession = require('./models/WorkSession')
 const TechScan = require('./models/TechScan')
+const Target = require('./models/Target')
 
 //associations could go here!
 User.hasMany(WorkSession, {
@@ -22,6 +23,7 @@ module.exports = {
   models: {
     User,
     WorkSession,
-    TechScan
+    TechScan,
+    Target
   },
 }
