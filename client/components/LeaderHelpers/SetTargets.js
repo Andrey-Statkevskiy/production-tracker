@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { saveTargets, fetchTargets } from "../../store/targets";
+import { fetchTargets, updateSingleTarget } from "../../store/targets";
 import { useNavigate } from "react-router-dom";
+import "./HomeLead.css";
 
 const SetTargets = () => {
   const dispatch = useDispatch();
@@ -9,55 +10,158 @@ const SetTargets = () => {
 
   const targets = useSelector((state) => state.targets.data);
 
-  const [localTargets, setLocalTargets] = useState({
-    lvl1: { value: "", period: "day" },
-    lvl2: { value: "", period: "day" },
-    cell: { value: "", period: "day" },
+  const [local, setLocal] = useState({
+    lvl1: { value: 0, period: "day" },
+    lvl2: { value: 0, period: "day" },
+    cell: { value: 0, period: "week" },
   });
 
+  // load
   useEffect(() => {
     dispatch(fetchTargets());
   }, [dispatch]);
 
+  // sync redux → local
   useEffect(() => {
     if (!targets) return;
 
-    setLocalTargets({
+    setLocal({
       lvl1: {
-        value: targets.lvl1_value || "",
+        value: targets.lvl1_value || 0,
         period: targets.lvl1_period || "day",
       },
       lvl2: {
-        value: targets.lvl2_value || "",
+        value: targets.lvl2_value || 0,
         period: targets.lvl2_period || "day",
       },
       cell: {
-        value: targets.cell_value || "",
+        value: targets.cell_value || 0,
         period: targets.cell_period || "day",
       },
     });
   }, [targets]);
 
-  const handleSubmit = async () => {
-    const targetsData = {
-      lvl1_value: localTargets.lvl1.value,
-      lvl1_period: localTargets.lvl1.period,
-      lvl2_value: localTargets.lvl2.value,
-      lvl2_period: localTargets.lvl2.period,
-      cell_value: localTargets.cell.value,
-      cell_period: localTargets.cell.period,
+  const handleChange = (key, field, value) => {
+    setLocal((prev) => ({
+      ...prev,
+      [key]: {
+        ...prev[key],
+        [field]: value,
+      },
+    }));
+    // console.log(targets)
+  };
+
+  const handleUpdate = (key) => {
+    const payload = {
+      value: local[key].value,
+      period: local[key].period,
     };
 
-    await dispatch(saveTargets(targetsData));
-
-    navigate("/home");
+    dispatch(updateSingleTarget(key, payload));
   };
 
   return (
     <div className="homeLeadContainer">
-      <button onClick={() => navigate("/home")}>Back</button>
+      {/* LEFT COLUMN */}
+      <div className="setTargetsColumn">
+        {/* LEVEL 1 */}
+        <div className="targetCard">
+          <h3>
+            Level 1 Target: <br />
+            {targets?.lvl1_value} per {targets?.lvl1_period}
+          </h3>
 
-      <button onClick={handleSubmit}>Save</button>
+          <div className="row">
+            <input
+              type="number"
+              value={local.lvl1.value}
+              onChange={(e) => handleChange("lvl1", "value", e.target.value)}
+            />
+            per
+            <select
+              value={local.lvl1.period}
+              onChange={(e) => handleChange("lvl1", "period", e.target.value)}
+            >
+              <option value="day">day</option>
+              <option value="week">week</option>
+              <option value="month">month</option>
+            </select>
+            <button
+              className="btn btn-blue"
+              onClick={() => handleUpdate("lvl1")}
+            >
+              Update
+            </button>
+          </div>
+        </div>
+
+        {/* LEVEL 2 */}
+        <div className="targetCard">
+          <h3>
+            Level 2 Target: <br />
+            {targets?.lvl2_value} per {targets?.lvl2_period}
+          </h3>
+
+          <div className="row">
+            <input
+              type="number"
+              value={local.lvl2.value}
+              onChange={(e) => handleChange("lvl2", "value", e.target.value)}
+            />
+            per
+            <select
+              value={local.lvl2.period}
+              onChange={(e) => handleChange("lvl2", "period", e.target.value)}
+            >
+              <option value="day">day</option>
+              <option value="week">week</option>
+              <option value="month">month</option>
+            </select>
+            <button
+              className="btn btn-blue"
+              onClick={() => handleUpdate("lvl2")}
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* RIGHT COLUMN */}
+      <div className="setTargetsColumn">
+        <div className="targetCard">
+          <h3>
+            Current Target: <br />
+            {targets?.cell_value} per {targets?.cell_period}
+          </h3>
+
+          <div className="row">
+            <input
+              type="number"
+              value={local.cell.value}
+              onChange={(e) => handleChange("cell", "value", e.target.value)}
+            />
+            per
+            <select
+              value={local.cell.period}
+              onChange={(e) => handleChange("cell", "period", e.target.value)}
+            >
+              <option value="day">day</option>
+              <option value="week">week</option>
+              <option value="month">month</option>
+            </select>
+          </div>
+
+          <button className="btn btn-blue" onClick={() => handleUpdate("cell")}>
+            Update Target
+          </button>
+        </div>
+
+        <button className="btn btn-red" onClick={() => navigate("/home")}>
+          Go Back
+        </button>
+      </div>
     </div>
   );
 };

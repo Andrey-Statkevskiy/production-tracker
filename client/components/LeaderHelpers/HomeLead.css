@@ -32,12 +32,21 @@
 /*Set Targets Helper Component*/
 
 .setTargetsColumn {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  width: 50%;
-  align-items: center;
+  gap: 20px;
+  text-align: center;
 }
 
-.setTargetByLevel {
-  
+.targetCard {
+  padding: 20px;
+  align-self: center;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
 }

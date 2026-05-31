@@ -14,11 +14,37 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
+router.patch('/', async (req, res) => {
   try {
-    const newTarget = await Target.create(req.body)
+    const { key, value, period } = req.body
 
-    res.json(newTarget) // return data
+    let target = await Target.findOne({
+      order: [['createdAt', 'DESC']]
+    })
+
+    if (!target) {
+      target = await Target.create({})
+    }
+
+    // динамическое обновление поля
+    if (key === 'lvl1') {
+      target.lvl1_value = value
+      target.lvl1_period = period
+    }
+
+    if (key === 'lvl2') {
+      target.lvl2_value = value
+      target.lvl2_period = period
+    }
+
+    if (key === 'cell') {
+      target.cell_value = value
+      target.cell_period = period
+    }
+
+    await target.save()
+
+    res.json(target)
   } catch (err) {
     res.status(500).send(err.message)
   }

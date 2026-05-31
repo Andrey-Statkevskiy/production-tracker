@@ -35,21 +35,25 @@ export const fetchTargets = () => async dispatch => {
   }
 }
 
-export const saveTargets = (targets) => async dispatch => {
+export const updateSingleTarget = (key, payload) => async dispatch => {
   const config = {
     headers: {
       Authorization: localStorage.getItem('token')
     }
   }
 
-  try {
+ try {
     dispatch({ type: SET_LOADING })
 
-    const { data } = await axios.post('/api/targets', targets, config)
+    const { data } = await axios.patch('/api/targets', {
+      key,        // "lvl1" | "lvl2" | "cell"
+      ...payload  // { value, period }
+    }, config)
 
+    // backend возвращает обновлённый full object
     dispatch({ type: SET_TARGETS, payload: data })
 
-    return data // 👈 ВОТ ЭТО ОБЯЗАТЕЛЬНО
+    return data
   } catch (err) {
     dispatch({
       type: SET_ERROR,
