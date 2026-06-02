@@ -44,7 +44,7 @@ export const ControlPanel = ({ role }) => {
           </button>
           <button
             className="btn btn-blue"
-            onClick={() => console.log("Reset Progress Btn clicked")}
+            onClick={() => navigate("/home/reset-progress")}
           >
             Reset Progress
           </button>

@@ -26,7 +26,7 @@ router.patch('/', async (req, res) => {
       target = await Target.create({})
     }
 
-    // динамическое обновление поля
+    // dynamic input field updating
     if (key === 'lvl1') {
       target.lvl1_value = value
       target.lvl1_period = period

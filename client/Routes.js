@@ -66,6 +66,7 @@ import HomeAssyTech from './components/HomeAssyTech'
 import HomeLead from './components/HomeLead'
 import HomeTv from './components/HomeTv'
 import SetTargets from './components/LeaderHelpers/SetTargets'
+import ResetProgress from './components/LeaderHelpers/ResetProgress'
 import { me } from './store'
 
 const Routes = () => {
@@ -98,6 +99,10 @@ const Routes = () => {
           <Route
             path="/home/set-targets"
             element={role === 'leader' ? <SetTargets /> : <Navigate to="/home" />}
+          />
+          <Route
+            path="/home/reset-progress"
+            element={role === 'leader' ? <ResetProgress /> : <Navigate to="/home" />}
           />
         </>
       ) : (

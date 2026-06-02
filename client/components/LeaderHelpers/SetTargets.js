@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchTargets, updateSingleTarget } from "../../store/targets";
 import { useNavigate } from "react-router-dom";
+import { fetchTargets, updateSingleTarget } from "../../store/targets";
 import "./HomeLead.css";
 
-const SetTargets = () => {
+export const SetTargets = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
