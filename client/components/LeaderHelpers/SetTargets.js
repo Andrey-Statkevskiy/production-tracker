@@ -132,7 +132,7 @@ const SetTargets = () => {
       <div className="setTargetsColumn">
         <div className="targetCard">
           <h3>
-            Current Target: <br />
+            Cell 1 Target: <br />
             {targets?.cell_value} per {targets?.cell_period}
           </h3>
 
@@ -151,14 +151,14 @@ const SetTargets = () => {
               <option value="week">week</option>
               <option value="month">month</option>
             </select>
+            <button className="btn btn-blue" onClick={() => handleUpdate("cell")}>
+                Update
+            </button>
           </div>
 
-          <button className="btn btn-blue" onClick={() => handleUpdate("cell")}>
-            Update Target
-          </button>
         </div>
 
-        <button className="btn btn-red" onClick={() => navigate("/home")}>
+        <button className="btn btn-red" style={{margin: '7.6em 0px 0px 18em'}} onClick={() => navigate("/home")}>
           Go Back
         </button>
       </div>
