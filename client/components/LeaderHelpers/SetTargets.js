@@ -69,7 +69,8 @@ export const SetTargets = () => {
         <div className="targetCard">
           <h3>
             Level 1 Target: <br />
-            {targets?.lvl1_value} per {targets?.lvl1_period}
+            {targets?.lvl1_value ? `${(targets.lvl1_value)} per ${(targets?.lvl1_period)}` : "No target is set"}
+            {/* {targets?.lvl1_value} per {targets?.lvl1_period} */}
           </h3>
 
           <div className="row">
@@ -100,7 +101,8 @@ export const SetTargets = () => {
         <div className="targetCard">
           <h3>
             Level 2 Target: <br />
-            {targets?.lvl2_value} per {targets?.lvl2_period}
+            {targets?.lvl2_value ? `${(targets.lvl2_value)} per ${(targets?.lvl2_period)}` : "No target is set"}
+            {/* {targets?.lvl2_value} per {targets?.lvl2_period} */}
           </h3>
 
           <div className="row">
