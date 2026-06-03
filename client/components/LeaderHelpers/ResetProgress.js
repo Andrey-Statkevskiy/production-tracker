@@ -13,7 +13,7 @@ export const ResetProgress = () => {
         <br />
         want to reset progress?
       </p>
-      <button className="btn btn-blue" onClick={() => console.log("hit yes")}>
+      <button className="btn btn-blue" onClick={() => console.log("hit yes")}>  {/* Logic goes here */}
         Yes
       </button>
       <button className="btn btn-red" onClick={() => navigate("/home")}>
