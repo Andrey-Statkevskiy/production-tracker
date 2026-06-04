@@ -177,6 +177,9 @@ form div {
 
 .errorTxt {
   color: #a30000;
-  font-size: 13px;
+  font-size: 20px;
+  font-weight: 400;
+  width: 25em;
+  text-align: center;
 }
 

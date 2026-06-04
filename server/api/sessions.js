@@ -14,7 +14,7 @@ router.post('/start', async (req, res, next) => {
     })
 
     if (existing) {
-      return res.status(400).send('Session already in progress')
+      return res.status(400).send('Error: Session already in progress. Are you running the same account on multiple devices? Please logout from both and run from the new one.')
     }
 
     const session = await WorkSession.create({

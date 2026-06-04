@@ -4,6 +4,7 @@ import { startSession } from '../../store/sessions'
 
 const StartScreen = () => {
   const dispatch = useDispatch()
+  const error = useSelector((state) => state.session?.error)
 
   const [station, setStation] = useState('Station')
   const [level, setLevel] = useState(0)
@@ -39,8 +40,8 @@ const StartScreen = () => {
       <div>
         <button className='btn btn-green' onClick={handleStart}>Start Run</button>
       </div>
-      {errMsg && <p className='startScreenErr'>{errMsg}</p>}
-
+      {errMsg && <p className='errorTxt'>{errMsg}</p>}
+      {error && <p className='errorTxt'>{error}</p>}
     </div>
   )
 }
