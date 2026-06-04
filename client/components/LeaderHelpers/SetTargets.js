@@ -49,7 +49,7 @@ export const SetTargets = () => {
         [field]: value,
       },
     }));
-    // console.log(targets)
+    console.log(req.params)
   };
 
   const handleUpdate = (key) => {
