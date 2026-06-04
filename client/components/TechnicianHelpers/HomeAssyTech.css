@@ -1,0 +1,130 @@
+.homeAssyTechContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+/* Job Start/Main Screen */
+
+.startScreenContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: inherit;
+}
+
+.startScreenTitle{
+  font-size: 28px;
+  font-weight: 400;
+  margin: 50px 0 0 0;
+}
+
+.startScreenStationLevelDropdowns{
+  display: flex;
+  flex-direction: row;
+}
+
+.startScreenStationLevelDropdowns select{
+  margin: 130px 70px 100px 70px;
+  padding: 10px 40px 10px 25px;
+  background-color: #0056A3;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+.startScreenStationLevelDropdowns select:hover{
+  background-color: #003f77;
+}
+
+/* Job Run Screen */
+
+.workScreenContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.left-instructions-panel {
+  width: 35%;
+  overflow: auto;
+  transition: width 0.4s ease;
+  text-align: center;
+}
+
+.pdf-panel {
+  transition: width 0.4s ease;
+  overflow: hidden;
+}
+
+.collapse-handle {
+  width: 20px;
+  min-width: 20px;
+  background: #222;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  z-index: 10;
+}
+
+.collapse-handle {
+  transition: transform 0.3s ease;
+}
+
+.workScreenContainer.open .collapse-handle {
+  transform: rotate(180deg);
+}
+
+.workScreenContainer.open .left-instructions-panel {
+  width: 35%;
+}
+
+.workScreenContainer.open .pdf-panel {
+  width: 99%;
+}
+.workScreenContainer.open .pdf-panel iframe{
+  height: 83vh;
+  width: 67em;
+}
+
+.workScreenContainer.collapsed .left-instructions-panel {
+  width: calc(100% - 20px); 
+}
+
+.workScreenContainer.collapsed .pdf-panel {
+  width: 0;
+}
+
+/* Run Completion Screen  */
+
+.completeScreenContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.completedUnitsInput{
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #0056A3;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #0056A3
+}
+
+.completeScreenTitle{
+  font-size: 28px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.completeScreenErr{
+  font-size: 20px;
+  font-weight: 400;
+}

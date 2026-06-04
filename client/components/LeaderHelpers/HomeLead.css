@@ -1,0 +1,67 @@
+.homeLeadContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.controlsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  align-items: center;
+}
+.columnTitle {
+  font-size: 28px;
+  font-weight: 400;
+  margin: 25px 0 0 0;
+  text-align: center;
+}
+
+.leaderOnlyControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  width: 70%; /* remove/adjust it is not adaptive */
+}
+
+/*Set Targets Helper Component*/
+
+.setTargetsColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+.targetCard {
+  padding: 20px;
+  align-self: center;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Reset Progress Helper Component */
+
+.resetProgressContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resetProgressTitle {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 3em;
+}

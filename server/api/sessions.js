@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { models: { WorkSession, TechScan }} = require('../db')
+const { models: { WorkSession, TechScan, Progress}} = require('../db')
 module.exports = router
 
 router.post('/start', async (req, res, next) => {
@@ -14,7 +14,7 @@ router.post('/start', async (req, res, next) => {
     })
 
     if (existing) {
-      return res.status(400).send('Session already in progress')
+      return res.status(400).send('Error: Session already in progress. Are you running the same account on multiple devices? Please logout from both and run from the new one.')
     }
 
     const session = await WorkSession.create({
@@ -45,33 +45,6 @@ router.get('/active', async (req, res, next) => {
   }
 })
 
-// router.post('/complete', async (req, res, next) => {
-//   try {
-//     const { unitsCount } = req.body
-
-//     const session = await WorkSession.findOne({
-//       where: {
-//         userId: req.user.id,
-//         status: 'IN_PROGRESS'
-//       }
-//     })
-
-//     if (!session) {
-//       return res.status(404).send('No active session')
-//     }
-
-//     await session.update({
-//       status: 'COMPLETED',
-//       endedRunAt: new Date(),
-//       unitsCount
-//     })
-
-//     res.json(session)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
 router.post("/:id/complete", async (req, res, next) => {
   try {
     const { scans, unitsCount } = req.body; // массив строк
@@ -95,7 +68,10 @@ router.post("/:id/complete", async (req, res, next) => {
     if (uniqueScans.length !== scans.length) {
       return res.status(400).send("Duplicate serials detected");
     }
-    // создаём записи
+
+    // ALSO CHECK FOR DUPLICATES WITHIN THE DB, BUT DONT NECESSARILY CRASH JUST LET KNOW - IF YES, THEN UPDATE DATES AND ADD THE REST, IF NO, ADD THE REST ONLY?
+
+    // create records
     const scanRecords = uniqueScans.map(serial => ({
       serial,
       workSessionId: session.id
@@ -104,7 +80,29 @@ router.post("/:id/complete", async (req, res, next) => {
     
     await TechScan.bulkCreate(scanRecords);
     
-    // можно обновить статус сессии
+    
+    const progress = await Progress.findOne({
+      where: {
+        level: session.level
+      }
+    })
+    
+    if (!progress) {
+      await Progress.create({
+        level: session.level,
+        unitsCount
+      })
+    } else {
+      await Progress.update({
+        unitsCount: progress.unitsCount + unitsCount
+      }, {
+        where: {
+          level: session.level
+        }
+      })
+    }
+
+    // update status of the session
     await WorkSession.update(
       {
         status: "COMPLETED",
@@ -115,7 +113,7 @@ router.post("/:id/complete", async (req, res, next) => {
         where: { id: sessionId }
       }
     );
-    
+
     res.json({ success: true });
   } catch (err) {
     next(err);

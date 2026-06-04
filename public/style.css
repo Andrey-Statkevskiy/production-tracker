@@ -139,6 +139,7 @@ form div {
 
 /* Consolidate Button Styling */
 .btn {
+  margin: 15px;
   padding: 10px 25px;
   border: none;
   border-radius: 2px;
@@ -146,6 +147,7 @@ form div {
   font-size: 16px;
   cursor: pointer;
   text-align: center;
+  width: 175px;
 }
 
 /* Colors */
@@ -175,134 +177,9 @@ form div {
 
 .errorTxt {
   color: #a30000;
-  font-size: 13px;
-}
-
-/* Job Start/Main Screen */
-
-.startScreenContainer{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.startScreenTitle{
-  font-size: 28px;
-  font-weight: 400;
-  margin: 50px 0 0 0;
-}
-
-.startScreenStationLevelDropdowns{
-  display: flex;
-  flex-direction: row;
-}
-
-.startScreenStationLevelDropdowns select{
-  margin: 130px 70px 100px 70px;
-  padding: 10px 40px 10px 25px;
-  background-color: #0056A3;
-  border: none;
-  border-radius: 2px;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-}
-.startScreenStationLevelDropdowns select:hover{
-  background-color: #003f77;
-}
-
-.startScreenErr{
   font-size: 20px;
   font-weight: 400;
-}
-
-/* Job Run Screen */
-
-.workScreenContainer {
-  display: flex;
-  flex-direction: row;
-  padding: 10px;
-}
-
-.left-instructions-panel {
-  width: 30%;
-  overflow: auto;
-  transition: width 0.4s ease;
+  width: 25em;
   text-align: center;
-}
-
-.pdf-panel {
-  transition: width 0.4s ease;
-  overflow: hidden;
-}
-
-.collapse-handle {
-  width: 30px;
-  min-width: 30px;
-  background: #222;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-
-  z-index: 10;
-}
-
-.collapse-handle {
-  transition: transform 0.3s ease;
-}
-
-.workScreenContainer.open .collapse-handle {
-  transform: rotate(180deg);
-}
-
-.workScreenContainer.open .left-instructions-panel {
-  width: 30%;
-}
-
-.workScreenContainer.open .pdf-panel {
-  width: 100%;
-}
-.workScreenContainer.open .pdf-panel iframe{
-  height: 83vh;
-  width: 70em;
-}
-
-.workScreenContainer.collapsed .left-instructions-panel {
-  width: calc(100% - 30px); 
-}
-
-.workScreenContainer.collapsed .pdf-panel {
-  width: 0;
-}
-
-/* Run Completion Screen  */
-
-.completeScreenContainer{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.completedUnitsInput{
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #0056A3;
-  border-radius: 6px;
-  font-size: 14px;
-  color: #0056A3
-}
-
-.completeScreenTitle{
-  font-size: 28px;
-  font-weight: 400;
-  text-align: center;
-}
-
-.completeScreenErr{
-  font-size: 20px;
-  font-weight: 400;
 }
 

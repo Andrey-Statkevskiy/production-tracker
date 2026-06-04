@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {register} from '../store'
 
 export const SignUpPage = ({ onAnyBtnClick }) => {
@@ -31,7 +31,7 @@ export const SignUpPage = ({ onAnyBtnClick }) => {
           ? null
           : Number(registerForm.emplId)
       await dispatch(register(registerForm.username, registerForm.password, registerForm.role, employeeId, 'signup'))
-      onAnyBtnClick('user created'); //закроет форму у лидера в админке
+      onAnyBtnClick('user created'); //will close the form in the control panel
     } catch (err) {}
   }
 

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useTimer } from '../components/utils/useTimer'
 import { formatTime } from '../components/utils/formatTime'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, useLocation } from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, role, station, level, startRunAt}) => {
   const elapsedTime = useTimer(startRunAt)
-
+  const location = useLocation();
   return (
     <nav>
     <div className="navbar">
@@ -32,6 +32,21 @@ const Navbar = ({handleClick, isLoggedIn, role, station, level, startRunAt}) => 
           {/* <div className="item col6"># Assemblies Pending</div> */}
         </>
       )}
+
+      {role === 'leader' && location.pathname.includes("set-targets") && (
+        <>
+          <div className={`item col3-top`}>Controls</div>
+          <div className={`item col3-bottom`}>Set Targets</div>
+        </>
+      )}
+
+      {role === 'leader' && location.pathname.includes("reset-progress") && (
+        <>
+          <div className={`item col3-top`}>Controls</div>
+          <div className={`item col3-bottom`}>Reset Progress</div>
+        </>
+      )}
+
       {isLoggedIn &&
         <div className="item col6">
           <a href="#" onClick={handleClick}>Logout</a>
