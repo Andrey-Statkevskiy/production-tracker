@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useTimer } from '../components/utils/useTimer'
 import { formatTime } from '../components/utils/formatTime'
-import {connect} from 'react-redux'
-import {Link, useLocation } from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { Link, useLocation } from 'react-router-dom'
+import { logout } from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, role, station, level, startRunAt}) => {
   const elapsedTime = useTimer(startRunAt)
@@ -16,10 +16,10 @@ const Navbar = ({handleClick, isLoggedIn, role, station, level, startRunAt}) => 
       </div>
 
       <div className="item col2-top">Production Tracker</div>
-      {isLoggedIn && (
+      <div className="item col2-bottom">{role && (role[0].toUpperCase() + role.slice(1))}</div>
+      
+      {isLoggedIn && role === 'technician' && (
         <>
-          <div className="item col2-bottom">{role && (role[0].toUpperCase() + role.slice(1))}</div>
-
           <div className={`item col3-top ${!station ? 'hidden' : ''}`}>Station</div>
           <div className={`item col3-bottom ${!station ? 'hidden' : ''}`}>{station}</div>
 

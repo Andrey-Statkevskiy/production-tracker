@@ -6,64 +6,61 @@ module.exports = router;
 
 router.get("/", async (req, res) => {
   try {
-    const target = await Target.findOne({
-      order: [["createdAt", "DESC"]],
+    const targets = await Target.findAll({
+      order: [["level", "ASC"]],
     });
 
-    res.json(target);
+    res.json(targets);
   } catch (err) {
     res.status(500).send(err.message);
   }
 });
 
 router.patch("/", async (req, res) => {
-  try {
-    const { key, value, period } = req.body;
+  const { level, value, period } = req.body;
 
-    let target = await Target.findOne({
-      order: [["createdAt", "DESC"]],
+  let target = await Target.findOne({ where: { level } });
+
+  if (!target) {
+    target = await Target.create({ level, value, period });
+  } else {
+    await target.update({ value, period });
+  }
+
+  // IMPORTANT: return full dataset
+  const allTargets = await Target.findAll({
+    order: [["level", "ASC"]],
+  });
+
+  res.json(allTargets);
+});
+
+router.get("/progress", async (req, res) => {
+  try {
+    const progress = await Progress.findAll({
+      order: [["level", "ASC"]],
     });
 
-    if (!target) {
-      target = await Target.create({});
-    }
-
-    // dynamic input field updating
-    if (key === "lvl1") {
-      target.lvl1_value = value;
-      target.lvl1_period = period;
-    }
-
-    if (key === "lvl2") {
-      target.lvl2_value = value;
-      target.lvl2_period = period;
-    }
-
-    if (key === "cell") {
-      target.cell_value = value;
-      target.cell_period = period;
-    }
-
-    await target.save();
-
-    res.json(target);
+    res.json(progress);
   } catch (err) {
     res.status(500).send(err.message);
   }
 });
 
+
 router.post("/progress/reset", async (req, res) => {
   try {
     await Progress.update(
       { unitsCount: 0 },
-      { where: { level: ["1", "2"] } }, // all rows, or leave as where: {}
+      { where: {} } // reset ALL levels dynamically
     );
 
-    const updated = await Progress.findAll();
+    const updated = await Progress.findAll({
+      order: [["level", "ASC"]],
+    });
 
     res.json(updated);
   } catch (err) {
-    console.error(err);
     res.status(500).send(err.message);
   }
 });

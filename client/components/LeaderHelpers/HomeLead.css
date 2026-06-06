@@ -26,10 +26,23 @@
 .progressContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 70%; /* remove/adjust it is not adaptive */
 }
 
+.progressBarsContainer {
+  width: 50%;
+  margin-top: 20px;
+  text-align: center;
+}
+
 /*Set Targets Helper Component*/
+.setTargetsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
 .setTargetsColumn {
   flex: 1;

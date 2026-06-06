@@ -1,176 +1,116 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchTargets, updateSingleTarget } from "../../store/targets";
 import "./HomeLead.css";
 
+const LEVELS = [
+  { level: 1, label: "Level 1" },
+  { level: 2, label: "Level 2" },
+];
+
 export const SetTargets = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const targets = useSelector((state) => state.targets.data);
+  const targets = useSelector((state) => state.targets.targets);
 
-  const [local, setLocal] = useState({
-    lvl1: { value: 0, period: "day" },
-    lvl2: { value: 0, period: "day" },
-    cell: { value: 0, period: "week" },
-  });
-
-  // load
   useEffect(() => {
     dispatch(fetchTargets());
   }, [dispatch]);
 
-  // sync redux → local
+  // map: level -> target
+  const safeTargets = Array.isArray(targets) ? targets : [];
+  const targetsMap = useMemo(() => {
+    return Object.fromEntries(safeTargets.map((t) => [t.level, t]));
+  }, [safeTargets]);
+
+  // local draft state (ONLY for editing)
+  const [draft, setDraft] = useState({});
+
+  // sync draft when redux changes
   useEffect(() => {
-    if (!targets) return;
+    setDraft((prev) => {
+      const next = { ...prev };
 
-    setLocal({
-      lvl1: {
-        value: targets.lvl1_value || 0,
-        period: targets.lvl1_period || "day",
-      },
-      lvl2: {
-        value: targets.lvl2_value || 0,
-        period: targets.lvl2_period || "day",
-      },
-      cell: {
-        value: targets.cell_value || 0,
-        period: targets.cell_period || "day",
-      },
+      LEVELS.forEach(({ level }) => {
+        next[level] = {
+          value: targetsMap[level]?.value ?? prev[level]?.value ?? "",
+          period: targetsMap[level]?.period ?? prev[level]?.period ?? "day",
+        };
+      });
+
+      return next;
     });
-  }, [targets]);
+  }, [targetsMap]);
 
-  const handleChange = (key, field, value) => {
-    setLocal((prev) => ({
+  const handleChange = (level, field, value) => {
+    setDraft((prev) => ({
       ...prev,
-      [key]: {
-        ...prev[key],
+      [level]: {
+        ...prev[level],
         [field]: value,
       },
     }));
-    console.log(req.params)
   };
 
-  const handleUpdate = (key) => {
-    const payload = {
-      value: local[key].value,
-      period: local[key].period,
-    };
+  const handleUpdate = (level) => {
+    dispatch(
+      updateSingleTarget(level, {
+        value: Number(draft[level].value),
+        period: draft[level].period,
+      }),
+    );
+  };
 
-    dispatch(updateSingleTarget(key, payload));
+  const getDisplayText = (level) => {
+    const target = targetsMap[level];
+
+    if (!target) return "No target is set";
+
+    return `${target.value} per ${target.period}`;
   };
 
   return (
-    <div className="homeLeadContainer">
-      {/* LEFT COLUMN */}
-      <div className="setTargetsColumn">
-        {/* LEVEL 1 */}
-        <div className="targetCard">
+    <div className="setTargetsContainer">
+      {LEVELS.map(({ level, label }) => (
+        <div key={level} className="targetCard">
+          {/* LIVE Redux display (source of truth) */}
           <h3>
-            Level 1 Target: <br />
-            {targets?.lvl1_value ? `${(targets.lvl1_value)} per ${(targets?.lvl1_period)}` : "No target is set"}
-            {/* {targets?.lvl1_value} per {targets?.lvl1_period} */}
+            {label} Target: <br />
+            {getDisplayText(level)}
           </h3>
 
+          {/* Editor (local state only for typing) */}
           <div className="row">
             <input
               type="number"
-              value={local.lvl1.value}
-              onChange={(e) => handleChange("lvl1", "value", e.target.value)}
+              value={draft[level]?.value ?? ""}
+              onChange={(e) => handleChange(level, "value", e.target.value)}
             />
             per
             <select
-              value={local.lvl1.period}
-              onChange={(e) => handleChange("lvl1", "period", e.target.value)}
+              value={draft[level]?.period ?? "day"}
+              onChange={(e) => handleChange(level, "period", e.target.value)}
             >
               <option value="day">day</option>
               <option value="week">week</option>
               <option value="month">month</option>
             </select>
+
             <button
               className="btn btn-blue"
-              onClick={() => handleUpdate("lvl1")}
+              onClick={() => handleUpdate(level)}
             >
               Update
             </button>
           </div>
         </div>
+      ))}
 
-        {/* LEVEL 2 */}
-        <div className="targetCard">
-          <h3>
-            Level 2 Target: <br />
-            {targets?.lvl2_value ? `${(targets.lvl2_value)} per ${(targets?.lvl2_period)}` : "No target is set"}
-            {/* {targets?.lvl2_value} per {targets?.lvl2_period} */}
-          </h3>
-
-          <div className="row">
-            <input
-              type="number"
-              value={local.lvl2.value}
-              onChange={(e) => handleChange("lvl2", "value", e.target.value)}
-            />
-            per
-            <select
-              value={local.lvl2.period}
-              onChange={(e) => handleChange("lvl2", "period", e.target.value)}
-            >
-              <option value="day">day</option>
-              <option value="week">week</option>
-              <option value="month">month</option>
-            </select>
-            <button
-              className="btn btn-blue"
-              onClick={() => handleUpdate("lvl2")}
-            >
-              Update
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* RIGHT COLUMN */}
-      <div className="setTargetsColumn">
-        {/* <div className="targetCard">
-          <h3>
-            Cell 1 Target: <br />
-            {targets?.cell_value} per {targets?.cell_period}
-          </h3>
-
-          <div className="row">
-            <input
-              type="number"
-              value={local.cell.value}
-              onChange={(e) => handleChange("cell", "value", e.target.value)}
-            />
-            per
-            <select
-              value={local.cell.period}
-              onChange={(e) => handleChange("cell", "period", e.target.value)}
-            >
-              <option value="day">day</option>
-              <option value="week">week</option>
-              <option value="month">month</option>
-            </select>
-            <button
-              disabled // REMOVE WHEN READY
-              className="btn btn-blue"
-              onClick={() => handleUpdate("cell")}
-            >
-              Update
-            </button>
-          </div>
-        </div> */}
-
-        <button
-          className="btn btn-red"
-          style={{ margin: "7.6em 0px 0px 18em" }}
-          onClick={() => navigate("/home")}
-        >
-          Go Back
-        </button>
-      </div>
+      <button className="btn btn-red" onClick={() => navigate("/home")}>
+        Go Back
+      </button>
     </div>
   );
 };

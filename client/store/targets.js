@@ -1,82 +1,125 @@
-import axios from 'axios'
+import axios from "axios";
 
 // ACTION TYPES
-const SET_TARGETS = 'SET_TARGETS'
-const SET_LOADING = 'SET_TARGETS_LOADING'
-const SET_ERROR = 'SET_TARGETS_ERROR'
+const SET_TARGETS = "SET_TARGETS";
+const SET_PROGRESS = "SET_PROGRESS";
+const SET_LOADING = "SET_LOADING";
+const SET_ERROR = "SET_ERROR";
 
 // INITIAL STATE
 const initialState = {
-  data: null,
+  targets: [],
+  progress: [],
   loading: false,
-  error: null
-}
+  error: null,
+};
+
+const normalizeTargets = (payload) => {
+  if (!payload) return [];
+
+  // single object from PATCH → wrap it
+  if (!Array.isArray(payload)) {
+    return [payload];
+  }
+
+  return payload;
+};
 
 // THUNKS
-
-export const fetchTargets = () => async dispatch => {
+export const fetchTargets = () => async (dispatch) => {
   const config = {
     headers: {
-      Authorization: localStorage.getItem('token')
-    }
-  }
+      Authorization: localStorage.getItem("token"),
+    },
+  };
 
   try {
-    dispatch({ type: SET_LOADING })
+    dispatch({ type: SET_LOADING });
 
-    const { data } = await axios.get('/api/targets', config)
+    const { data } = await axios.get("/api/targets", config);
 
-    dispatch({ type: SET_TARGETS, payload: data })
+    dispatch({ type: SET_TARGETS, payload: data });
   } catch (err) {
     dispatch({
       type: SET_ERROR,
-      error: err.response?.data || err.message
-    })
+      error: err.response?.data || err.message,
+    });
   }
-}
+};
 
-export const updateSingleTarget = (key, payload) => async dispatch => {
+export const fetchProgress = () => async (dispatch) => {
   const config = {
     headers: {
-      Authorization: localStorage.getItem('token')
-    }
-  }
+      Authorization: localStorage.getItem("token"),
+    },
+  };
 
- try {
-    dispatch({ type: SET_LOADING })
+  try {
+    dispatch({ type: SET_LOADING });
 
-    const { data } = await axios.patch('/api/targets', {
-      key,        // "lvl1" | "lvl2" | "cell"
-      ...payload  // { value, period }
-    }, config)
+    const { data } = await axios.get("/api/targets/progress", config);
 
-    // backend возвращает обновлённый full object
-    dispatch({ type: SET_TARGETS, payload: data })
-
-    return data
+    dispatch({ type: SET_PROGRESS, payload: data });
   } catch (err) {
     dispatch({
       type: SET_ERROR,
-      error: err.response?.data || err.message
-    })
-
-    throw err
+      error: err.response?.data || err.message,
+    });
   }
-}
+};
+
+export const updateSingleTarget = (level, payload) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  };
+
+  try {
+    dispatch({ type: SET_LOADING });
+
+    const { data } = await axios.patch(
+      "/api/targets",
+      {
+        level, // 🔥 теперь level, а не "lvl1"
+        ...payload,
+      },
+      config,
+    );
+
+    dispatch({ type: SET_TARGETS, payload: data });
+
+    return data;
+  } catch (err) {
+    dispatch({
+      type: SET_ERROR,
+      error: err.response?.data || err.message,
+    });
+
+    throw err;
+  }
+};
 
 // REDUCER
 export default function targetsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_LOADING:
-      return { ...state, loading: true }
+      return { ...state, loading: true };
 
     case SET_TARGETS:
-      return { ...state, data: action.payload, loading: false }
+      return {
+        ...state,
+        targets: normalizeTargets(action.payload),
+        loading: false,
+      };
+
+    case SET_PROGRESS:
+      return { ...state, progress: action.payload, loading: false };
 
     case SET_ERROR:
-      return { ...state, error: action.error, loading: false }
+      return { ...state, error: action.error, loading: false };
 
     default:
-      return state
+      return state;
   }
 }
