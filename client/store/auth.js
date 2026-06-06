@@ -8,6 +8,7 @@ const TOKEN = 'token'
  */
 const SET_AUTH = 'SET_AUTH'
 const SET_AUTH_ERROR = 'SET_AUTH_ERROR'
+const LOGOUT = 'LOGOUT'
 /**
  * ACTION CREATORS
  */
@@ -66,8 +67,7 @@ export const logout = () => {
   window.localStorage.removeItem(TOKEN)
   history.push('/login')
   return {
-    type: SET_AUTH,
-    auth: {}
+    type: LOGOUT
   }
 }
 
@@ -79,14 +79,17 @@ export default function(state = {}, action) {
     case SET_AUTH:
       return {
         ...action.auth,
-        error: null // 👈 очищаем ошибку при успехе
+        error: null // clear error upon success
       }
 
     case SET_AUTH_ERROR:
       return {
         ...state,
-        error: action.error // 👈 добавляем ошибку, НЕ затирая user
+        error: action.error // keeping the user, add error
       }
+    
+    case LOGOUT:
+      return {} // clearing auth state
 
     default:
       return state
