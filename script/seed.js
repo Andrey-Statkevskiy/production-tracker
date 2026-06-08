@@ -18,17 +18,6 @@ async function seed() {
 
   ])
   console.log(`seeded ${users.length} users`)
-  const targets = await Promise.all([
-    Target.create({ level: 1, value: 70, period: 'day'}),
-    Target.create({ level: 2, value: 50, period: 'day'})
-  ])
-  console.log(`seeded ${targets.length} targets`)
-  const progress = await Promise.all([
-    Progress.create({ level: 1, unitsCount: 0 }),
-    Progress.create({ level: 2, unitsCount: 0 })
-  ])
-  console.log(`seeded progress`)
-
   console.log(`seeded successfully`)
   return {
     users: {

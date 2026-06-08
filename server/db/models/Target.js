@@ -1,6 +1,7 @@
+// db/models/Target.js
+
 const { DataTypes } = require("sequelize");
 const db = require("../db");
-const axios = require("axios");
 
 const Target = db.define("target", {
   level: {
@@ -12,9 +13,13 @@ const Target = db.define("target", {
     allowNull: false,
     defaultValue: 0,
   },
-  period: {
-    type: DataTypes.STRING,
-    allowNull: true,
+  startDate: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  endDate: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
   },
 });
 

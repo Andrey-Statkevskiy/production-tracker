@@ -42,12 +42,13 @@ export const ControlPanel = ({ role }) => {
           >
             Set Targets
           </button>
+          {/* we are no longer resetting progress, we are displaying work done within the target boundaries
           <button
             className="btn btn-blue"
             onClick={() => navigate("/home/reset-progress")}
           >
             Reset Progress
-          </button>
+          </button> */}
           <button
             className="btn btn-blue"
             onClick={() => console.log("View All Users Btn clicked")}

@@ -1,5 +1,7 @@
 const router = require('express').Router()
-const { models: { WorkSession, TechScan, Progress}} = require('../db')
+const { models: { WorkSession, TechScan, 
+  // Progress
+}} = require('../db')
 module.exports = router
 
 router.post('/start', async (req, res, next) => {
@@ -81,26 +83,26 @@ router.post("/:id/complete", async (req, res, next) => {
     await TechScan.bulkCreate(scanRecords);
     
     
-    const progress = await Progress.findOne({
-      where: {
-        level: session.level
-      }
-    })
+    // const progress = await Progress.findOne({
+    //   where: {
+    //     level: session.level
+    //   }
+    // })
     
-    if (!progress) {
-      await Progress.create({
-        level: session.level,
-        unitsCount
-      })
-    } else {
-      await Progress.update({
-        unitsCount: progress.unitsCount + unitsCount
-      }, {
-        where: {
-          level: session.level
-        }
-      })
-    }
+    // if (!progress) {
+    //   await Progress.create({
+    //     level: session.level,
+    //     unitsCount
+    //   })
+    // } else {
+    //   await Progress.update({
+    //     unitsCount: progress.unitsCount + unitsCount
+    //   }, {
+    //     where: {
+    //       level: session.level
+    //     }
+    //   })
+    // }
 
     // update status of the session
     await WorkSession.update(

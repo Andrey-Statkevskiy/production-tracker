@@ -1,43 +1,54 @@
 import "./HomeLead.css";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchTargets, fetchProgress } from "../../store/targets";
+import { fetchSummary } from "../../store/targets";
 import { getColor } from "../utils/getColor";
 import { Line } from "@rc-component/progress";
 
 export const ProgressBars = () => {
   const dispatch = useDispatch();
 
-  const targets = useSelector((state) => state.targets.targets) ?? [];
-  const progress = useSelector((state) => state.targets.progress) ?? [];
+  const summary = useSelector((state) => state.targets.summary) ?? [];
 
   useEffect(() => {
-    dispatch(fetchTargets());
-    dispatch(fetchProgress());
+    dispatch(fetchSummary());
   }, [dispatch]);
 
-  const levels = Array.isArray(targets) ? targets.map((t) => t.level) : [];
+  const format = (p) =>
+    Number.isInteger(p) ? p : Number(p).toFixed(2);
 
   return (
     <>
-      {levels.map((level) => {
-          const formatPercent = (p) => (Number.isInteger(p) ? p : p.toFixed(2));
-          const target = targets.find((t) => t.level === level)?.value ?? 0;
-          const done = progress.find((p) => p.level === level)?.unitsCount ?? 0;
-          const getPercent = () => target ? (done / target) * 100 : 0;
-          const percent = getPercent();
-        return (
-          <div className="progressBarsContainer" key={level}>
-            Level {level}: {done}/{target} ({percent}%)
-            <Line
-              strokeColor={getColor(percent)}
-              percent={percent}
-              strokeWidth={2}
-              strokeLinecap="square"
-            />
+      {summary.map((lvl) => (
+        <div key={lvl.level} className="progressBarsContainer">
+          <h3>
+            Level {lvl.level}: {lvl.total}/{lvl.target} ({format(lvl.percent)}%)
+          </h3>
+
+          <Line
+            percent={lvl.percent}
+            strokeColor={getColor(lvl.percent)}
+            strokeLinecap="square"
+            strokeWidth={3}
+          />
+
+          {/* stations */}
+          <div style={{ marginTop: "10px", paddingLeft: "10px" }}>
+            {lvl.stations.map((st) => (
+              <div key={st.station}>
+                Station {st.station}: {st.units} ({format(st.percent)}%)
+
+                <Line
+                  percent={st.percent}
+                  strokeColor={getColor(st.percent)}
+                  strokeWidth={2}
+                  strokeLinecap="square"
+                />
+              </div>
+            ))}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </>
   );
 };

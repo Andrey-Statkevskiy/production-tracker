@@ -2,14 +2,13 @@ import axios from "axios";
 
 // ACTION TYPES
 const SET_TARGETS = "SET_TARGETS";
-const SET_PROGRESS = "SET_PROGRESS";
+const SET_SUMMARY = "SET_SUMMARY";
 const SET_LOADING = "SET_LOADING";
 const SET_ERROR = "SET_ERROR";
 
 // INITIAL STATE
 const initialState = {
   targets: [],
-  progress: [],
   loading: false,
   error: null,
 };
@@ -37,7 +36,6 @@ export const fetchTargets = () => async (dispatch) => {
     dispatch({ type: SET_LOADING });
 
     const { data } = await axios.get("/api/targets", config);
-
     dispatch({ type: SET_TARGETS, payload: data });
   } catch (err) {
     dispatch({
@@ -47,7 +45,7 @@ export const fetchTargets = () => async (dispatch) => {
   }
 };
 
-export const fetchProgress = () => async (dispatch) => {
+export const fetchSummary = () => async (dispatch) => {
   const config = {
     headers: {
       Authorization: localStorage.getItem("token"),
@@ -57,14 +55,16 @@ export const fetchProgress = () => async (dispatch) => {
   try {
     dispatch({ type: SET_LOADING });
 
-    const { data } = await axios.get("/api/targets/progress", config);
+    const { data } = await axios.get("/api/targets/summary", config);
 
-    dispatch({ type: SET_PROGRESS, payload: data });
+    dispatch({ type: SET_SUMMARY, payload: data });
   } catch (err) {
     dispatch({
       type: SET_ERROR,
       error: err.response?.data || err.message,
     });
+
+    throw err;
   }
 };
 
@@ -81,7 +81,7 @@ export const updateSingleTarget = (level, payload) => async (dispatch) => {
     const { data } = await axios.patch(
       "/api/targets",
       {
-        level, // 🔥 теперь level, а не "lvl1"
+        level,
         ...payload,
       },
       config,
@@ -113,8 +113,8 @@ export default function targetsReducer(state = initialState, action) {
         loading: false,
       };
 
-    case SET_PROGRESS:
-      return { ...state, progress: action.payload, loading: false };
+    case SET_SUMMARY:
+      return { ...state, summary: action.payload, loading: false };
 
     case SET_ERROR:
       return { ...state, error: action.error, loading: false };

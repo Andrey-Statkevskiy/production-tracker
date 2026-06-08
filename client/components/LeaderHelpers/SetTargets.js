@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchTargets, updateSingleTarget } from "../../store/targets";
 import "./HomeLead.css";
+import { formatDate } from "../utils/formatDate";
 
 const LEVELS = [
   { level: 1, label: "Level 1" },
@@ -20,23 +21,23 @@ export const SetTargets = () => {
   }, [dispatch]);
 
   // map: level -> target
-  const safeTargets = Array.isArray(targets) ? targets : [];
   const targetsMap = useMemo(() => {
-    return Object.fromEntries(safeTargets.map((t) => [t.level, t]));
-  }, [safeTargets]);
+    return Object.fromEntries(targets.map((t) => [t.level, t]));
+  }, [targets]);
 
   // local draft state (ONLY for editing)
   const [draft, setDraft] = useState({});
 
   // sync draft when redux changes
   useEffect(() => {
-    setDraft((prev) => {
-      const next = { ...prev };
+    setDraft(() => {
+      const next = {};
 
       LEVELS.forEach(({ level }) => {
         next[level] = {
-          value: targetsMap[level]?.value ?? prev[level]?.value ?? "",
-          period: targetsMap[level]?.period ?? prev[level]?.period ?? "day",
+          value: targetsMap[level]?.value ?? "",
+          startDate: targetsMap[level]?.startDate ?? "",
+          endDate: targetsMap[level]?.endDate ?? "",
         };
       });
 
@@ -55,10 +56,13 @@ export const SetTargets = () => {
   };
 
   const handleUpdate = (level) => {
+    const startDateFormatted = formatDate(draft[level].startDate);
+    const endDateFormatted = formatDate(draft[level].endDate);
     dispatch(
       updateSingleTarget(level, {
         value: Number(draft[level].value),
-        period: draft[level].period,
+        startDate: startDateFormatted,
+        endDate: endDateFormatted,
       }),
     );
   };
@@ -66,9 +70,9 @@ export const SetTargets = () => {
   const getDisplayText = (level) => {
     const target = targetsMap[level];
 
-    if (!target) return "No target is set";
+    if (!target?.value) return "No target is set";
 
-    return `${target.value} per ${target.period}`;
+    return `${target.value} from ${formatDate(target.startDate)} to ${formatDate(target.endDate)}`;
   };
 
   return (
@@ -88,16 +92,18 @@ export const SetTargets = () => {
               value={draft[level]?.value ?? ""}
               onChange={(e) => handleChange(level, "value", e.target.value)}
             />
-            per
-            <select
-              value={draft[level]?.period ?? "day"}
-              onChange={(e) => handleChange(level, "period", e.target.value)}
-            >
-              <option value="day">day</option>
-              <option value="week">week</option>
-              <option value="month">month</option>
-            </select>
-
+            starting
+            <input
+              type="date"
+              value={draft[level]?.startDate || ""}
+              onChange={(e) => handleChange(level, "startDate", e.target.value)}
+            />
+            ending
+            <input
+              type="date"
+              value={draft[level]?.endDate || ""}
+              onChange={(e) => handleChange(level, "endDate", e.target.value)}
+            />
             <button
               className="btn btn-blue"
               onClick={() => handleUpdate(level)}
