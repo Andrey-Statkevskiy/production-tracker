@@ -28,6 +28,7 @@ import { createLogger } from 'redux-logger'
 import auth from './auth'
 import sessionReducer from './sessions'
 import targetsReducer from './targets'
+import usersReducer from './users'
 
 const logger = createLogger({ collapsed: true })
 
@@ -35,6 +36,7 @@ const appReducer = combineReducers({
   auth,
   session: sessionReducer,
   targets: targetsReducer,
+  users: usersReducer,
 })
 
 const rootReducer = (state, action) => {

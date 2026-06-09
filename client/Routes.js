@@ -68,6 +68,7 @@ import HomeTv from './components/HomeTv'
 import SetTargets from './components/LeaderHelpers/SetTargets'
 import ResetProgress from './components/LeaderHelpers/ResetProgress'
 import { me } from './store'
+import ViewAllUsers from './components/LeaderHelpers/ViewAllUsers'
 
 const Routes = () => {
   const dispatch = useDispatch()
@@ -100,9 +101,13 @@ const Routes = () => {
             path="/home/set-targets"
             element={role === 'leader' ? <SetTargets /> : <Navigate to="/home" />}
           />
-          <Route
+          {/* <Route
             path="/home/reset-progress"
             element={role === 'leader' ? <ResetProgress /> : <Navigate to="/home" />}
+          /> */}
+          <Route
+            path="/home/view-users"
+            element={role === 'leader' ? <ViewAllUsers /> : <Navigate to="/home" />}
           />
         </>
       ) : (
