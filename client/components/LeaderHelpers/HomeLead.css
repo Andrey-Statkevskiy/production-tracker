@@ -65,7 +65,7 @@
 }
 
 /* Reset Progress Helper Component */
-
+/* 
 .resetProgressContainer {
   display: flex;
   flex-direction: column;
@@ -77,4 +77,29 @@
   font-size: 28px;
   font-weight: 600;
   margin-top: 3em;
+} */
+
+/* View All Users Component */
+
+.AllUsersMainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.usersContainer {
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.IndividualUserContainer {
+  border: solid 2px #0056A3;
+  flex: 1 1 15%;
+  max-width: 15%;
+  aspect-ratio: 1 / 1;
+  padding: 16px;
+  margin: 0 1px 10px 1px;
 }

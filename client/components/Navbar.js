@@ -46,7 +46,12 @@ const Navbar = ({handleClick, isLoggedIn, role, station, level, startRunAt}) => 
           <div className={`item col3-bottom`}>Reset Progress</div>
         </>
       )}
-
+      {role === 'leader' && location.pathname.includes("view-users") && (
+        <>
+          <div className={`item col3-top`}>Controls</div>
+          <div className={`item col3-bottom`}>All Users</div>
+        </>
+      )}
       {isLoggedIn &&
         <div className="item col6">
           <a href="#" onClick={handleClick}>Logout</a>

@@ -15,12 +15,15 @@ export const ViewAllUsers = () => {
   }, [dispatch]);
 
   return (
-    <div className="setTargetsContainer">
-      {users?.map(({ id, username, employeeId, role }) => (
-        <div key={id}>
+    <div className="AllUsersMainContainer">
+      <p className="columnTitle">All Users</p>
+      <div className="usersContainer">
+        {users?.map(({ id, username, employeeId, role }, i) => (
+          <div key={i} className="IndividualUserContainer">
             {id}, {username}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
       <button className="btn btn-red" onClick={() => navigate("/home")}>
         Go Back
       </button>
