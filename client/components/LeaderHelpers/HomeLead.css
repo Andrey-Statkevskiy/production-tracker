@@ -108,3 +108,31 @@
 .IndividualUserContainer img {
   width: 100%;
 }
+
+/* View/Export Data */
+.table-container {
+  overflow-x: auto;
+  padding: 20px;
+}
+
+.sessions-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.sessions-table th {
+  text-align: left;
+  padding: 10px;
+  background: #f5f5f5;
+  border-bottom: 2px solid #ddd;
+}
+
+.sessions-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.sessions-table tr:hover {
+  background: #fafafa;
+}

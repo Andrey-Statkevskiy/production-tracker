@@ -26,15 +26,17 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { createLogger } from 'redux-logger'
 import auth from './auth'
-import sessionReducer from './sessions'
+import sessionReducer from './singleSession'
 import targetsReducer from './targets'
 import usersReducer from './users'
+import allSessionsReducer from './allSessions'
 
 const logger = createLogger({ collapsed: true })
 
 const appReducer = combineReducers({
   auth,
   session: sessionReducer,
+  sessions: allSessionsReducer,
   targets: targetsReducer,
   users: usersReducer,
 })
