@@ -58,27 +58,28 @@
 // // when the url changes
 // export default connect(mapState, mapDispatch)(Routes);
 
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Routes as RouterRoutes, Route, Navigate } from 'react-router-dom'
-import SignInPage from './components/SignInPage'
-import HomeAssyTech from './components/HomeAssyTech'
-import HomeLead from './components/HomeLead'
-import HomeTv from './components/HomeTv'
-import SetTargets from './components/LeaderHelpers/SetTargets'
-import ResetProgress from './components/LeaderHelpers/ResetProgress'
-import { me } from './store'
-import ViewAllUsers from './components/LeaderHelpers/ViewAllUsers'
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Routes as RouterRoutes, Route, Navigate } from "react-router-dom";
+import SignInPage from "./components/SignInPage";
+import HomeAssyTech from "./components/HomeAssyTech";
+import HomeLead from "./components/HomeLead";
+import HomeTv from "./components/HomeTv";
+import SetTargets from "./components/LeaderHelpers/SetTargets";
+import ResetProgress from "./components/LeaderHelpers/ResetProgress";
+import { me } from "./store";
+import ViewAllUsers from "./components/LeaderHelpers/ViewAllUsers";
+import ViewExportData from "./components/LeaderHelpers/ViewExportData";
 
 const Routes = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector(state => !!state.auth.id)
-  const role = useSelector(state => state.auth.role)
+  const isLoggedIn = useSelector((state) => !!state.auth.id);
+  const role = useSelector((state) => state.auth.role);
 
   useEffect(() => {
-    dispatch(me())
-  }, [dispatch])
+    dispatch(me());
+  }, [dispatch]);
 
   return (
     <RouterRoutes>
@@ -89,17 +90,21 @@ const Routes = () => {
           <Route
             path="/home"
             element={
-              role === 'technician'
-                ? <HomeAssyTech />
-                : role === 'leader'
-                ? <HomeLead />
-                : <HomeTv />
+              role === "technician" ? (
+                <HomeAssyTech />
+              ) : role === "leader" ? (
+                <HomeLead />
+              ) : (
+                <HomeTv />
+              )
             }
           />
 
           <Route
             path="/home/set-targets"
-            element={role === 'leader' ? <SetTargets /> : <Navigate to="/home" />}
+            element={
+              role === "leader" ? <SetTargets /> : <Navigate to="/home" />
+            }
           />
           {/* <Route
             path="/home/reset-progress"
@@ -107,7 +112,15 @@ const Routes = () => {
           /> */}
           <Route
             path="/home/view-users"
-            element={role === 'leader' ? <ViewAllUsers /> : <Navigate to="/home" />}
+            element={
+              role === "leader" ? <ViewAllUsers /> : <Navigate to="/home" />
+            }
+          />
+          <Route
+            path="/home/view-data"
+            element={
+              role === "leader" ? <ViewExportData /> : <Navigate to="/home" />
+            }
           />
         </>
       ) : (
@@ -117,7 +130,7 @@ const Routes = () => {
         </>
       )}
     </RouterRoutes>
-  )
-}
+  );
+};
 
-export default Routes
+export default Routes;

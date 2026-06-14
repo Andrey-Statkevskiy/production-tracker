@@ -57,7 +57,7 @@ export const ControlPanel = ({ role }) => {
           </button>
           <button
             className="btn btn-blue"
-            onClick={() => console.log("View/Export Data Btn clicked")}
+            onClick={() => navigate("/home/view-data")}
           >
             View/Export Data
           </button>
