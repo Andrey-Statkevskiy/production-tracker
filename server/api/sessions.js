@@ -47,6 +47,19 @@ router.get('/active', async (req, res, next) => {
   }
 })
 
+router.get('/view-data', async (req, res, next) => {
+  try {
+    const sessions = await WorkSession.findAll({
+    order: [["id", "DESC"]],
+    attributes: ['id', 'station', 'level', 'startedRunAt', 'endedRunAt', 'unitsCount', 'userId'],
+    raw: true,
+  });
+  res.json(sessions)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post("/:id/complete", async (req, res, next) => {
   try {
     const { scans, unitsCount } = req.body; // массив строк
