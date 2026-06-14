@@ -20,7 +20,10 @@ export const ViewAllUsers = () => {
       <div className="usersContainer">
         {users?.map(({ id, username, employeeId, role }, i) => (
           <div key={i} className="IndividualUserContainer">
-            {id}, {username}
+            <img src="/logo.png" />
+            <p>{username}</p>
+            <p>{role}</p>
+            <p>{employeeId}</p>
           </div>
         ))}
       </div>
