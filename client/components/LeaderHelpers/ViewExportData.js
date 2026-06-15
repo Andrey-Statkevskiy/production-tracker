@@ -135,7 +135,7 @@ const ViewExportData = () => {
       { accessorKey: "unitsCount", header: "Units" },
       { accessorKey: "technician", header: "Technician" },
     ],
-    []
+    [],
   );
 
   const table = useReactTable({
@@ -185,10 +185,9 @@ const ViewExportData = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      View / Export Data
-
+      <p className="columnTitle">View / Export Data</p>
       {/* FILTERS */}
-      <div style={{ marginBottom: "10px" }}>
+      <div style={{ marginBottom: "10px" }} className="filtersContainer">
         <input
           placeholder="Session Id"
           value={draftFilters.id}
@@ -221,36 +220,44 @@ const ViewExportData = () => {
           }
         />
 
-        <input
-          type="date"
-          value={draftFilters.startDate}
-          onChange={(e) =>
-            setDraftFilters((p) => ({ ...p, startDate: e.target.value }))
-          }
-        />
+          <label>Start Date:</label>
+          <input
+            type="date"
+            value={draftFilters.startDate}
+            onChange={(e) =>
+              setDraftFilters((p) => ({ ...p, startDate: e.target.value }))
+            }
+          />
 
-        <input
-          type="date"
-          value={draftFilters.endDate}
-          onChange={(e) =>
-            setDraftFilters((p) => ({ ...p, endDate: e.target.value }))
-          }
-        />
+          <label>End Date:</label>
+          <input
+            type="date"
+            value={draftFilters.endDate}
+            onChange={(e) =>
+              setDraftFilters((p) => ({ ...p, endDate: e.target.value }))
+            }
+          />
 
-        {/* ✅ APPLY BUTTON BACK */}
-        <button onClick={applyFilters} style={{ marginLeft: 8 }}>
-          Apply
-        </button>
+        <div className="submitFilterOrClear">
+          <button
+            onClick={applyFilters}
+            style={{ marginLeft: 8 }}
+            className="btn btn-green"
+          >
+            Apply
+          </button>
 
-        <button onClick={clearFilters} style={{ marginLeft: 8 }}>
-          Clear
-        </button>
+          <button
+            onClick={clearFilters}
+            style={{ marginLeft: 8 }}
+            className="btn btn-blue"
+          >
+            Clear
+          </button>
+        </div>
       </div>
 
-      {/* EXPORT */}
-      <button onClick={exportCSV} style={{ marginBottom: 10 }}>
-        Export CSV
-      </button>
+      <hr />
 
       {/* TABLE */}
       <table border="1" cellPadding="8" style={{ width: "100%" }}>
@@ -261,7 +268,7 @@ const ViewExportData = () => {
                 <th key={header.id}>
                   {flexRender(
                     header.column.columnDef.header,
-                    header.getContext()
+                    header.getContext(),
                   )}
                 </th>
               ))}
@@ -277,7 +284,7 @@ const ViewExportData = () => {
                   {flexRender(
                     cell.column.columnDef.cell ??
                       cell.column.columnDef.accessorKey,
-                    cell.getContext()
+                    cell.getContext(),
                   )}
                 </td>
               ))}
@@ -285,10 +292,18 @@ const ViewExportData = () => {
           ))}
         </tbody>
       </table>
-
-      <button className="btn btn-red" onClick={() => navigate("/home")}>
-        Go Back
-      </button>
+      <div className="exportOrGoBack">
+        <button
+          onClick={exportCSV}
+          style={{ marginBottom: 10 }}
+          className="btn btn-green"
+        >
+          Export CSV
+        </button>
+        <button className="btn btn-red" onClick={() => navigate("/home")}>
+          Go Back
+        </button>
+      </div>
     </div>
   );
 };

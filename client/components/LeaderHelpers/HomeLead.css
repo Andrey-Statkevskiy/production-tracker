@@ -110,29 +110,31 @@
 }
 
 /* View/Export Data */
-.table-container {
-  overflow-x: auto;
-  padding: 20px;
+.filtersContainer {
+  text-align: center;
 }
 
-.sessions-table {
-  width: 100%;
-  border-collapse: collapse;
+.filtersContainer input {
+  padding: 10px;
+  border: 1px solid #0056A3;
+  border-radius: 6px;
   font-size: 14px;
+  color: #0056A3
 }
 
-.sessions-table th {
-  text-align: left;
-  padding: 10px;
-  background: #f5f5f5;
-  border-bottom: 2px solid #ddd;
+.filtersContainer input:focus {
+  background-color: #afdaff;
+  outline: none;
 }
 
-.sessions-table td {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+.exportOrGoBack {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.sessions-table tr:hover {
-  background: #fafafa;
+.submitFilterOrClear {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
