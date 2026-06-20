@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchActiveSession } from '../../store/sessions'
+import { fetchActiveSession } from '../../store/singleSession'
 
 import StartScreen from './StartScreen'
 import WorkScreen from './WorkScreen'

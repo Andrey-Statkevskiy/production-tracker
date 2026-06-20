@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { startSession } from '../../store/sessions'
+import { startSession } from '../../store/singleSession'
 
 const StartScreen = () => {
   const dispatch = useDispatch()

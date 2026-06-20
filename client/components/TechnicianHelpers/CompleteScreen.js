@@ -34,7 +34,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { completeSession } from "../../store/sessions";
+import { completeSession } from "../../store/singleSession";
 
 export default function CompleteWork() {
   const dispatch = useDispatch();

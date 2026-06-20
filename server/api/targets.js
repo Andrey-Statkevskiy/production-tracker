@@ -1,69 +1,85 @@
+// server/api/targets.js
+
 const router = require("express").Router();
 const {
-  models: { Target, Progress },
+  models: { Target, WorkSession },
 } = require("../db");
+const { Op } = require("sequelize");
+
 module.exports = router;
 
+// GET targets
 router.get("/", async (req, res) => {
-  try {
-    const target = await Target.findOne({
-      order: [["createdAt", "DESC"]],
-    });
-
-    res.json(target);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
+  const targets = await Target.findAll({
+    order: [["level", "ASC"]],
+    raw: true,
+  });
+  res.json(targets);
 });
 
+// CREATE / UPDATE target
 router.patch("/", async (req, res) => {
-  try {
-    const { key, value, period } = req.body;
+  const { level, value, startDate, endDate } = req.body;
 
-    let target = await Target.findOne({
-      order: [["createdAt", "DESC"]],
-    });
+  let target = await Target.findOne({ where: { level } });
 
-    if (!target) {
-      target = await Target.create({});
-    }
-
-    // dynamic input field updating
-    if (key === "lvl1") {
-      target.lvl1_value = value;
-      target.lvl1_period = period;
-    }
-
-    if (key === "lvl2") {
-      target.lvl2_value = value;
-      target.lvl2_period = period;
-    }
-
-    if (key === "cell") {
-      target.cell_value = value;
-      target.cell_period = period;
-    }
-
-    await target.save();
-
-    res.json(target);
-  } catch (err) {
-    res.status(500).send(err.message);
+  if (!target) {
+    await Target.create({ level, value, startDate, endDate });
+  } else {
+    await target.update({ value, startDate, endDate });
   }
+
+  const allTargets = await Target.findAll({
+    order: [["level", "ASC"]],
+  });
+
+  res.json(allTargets);
 });
 
-router.post("/progress/reset", async (req, res) => {
+// new summary endpoint (progress)
+router.get("/summary", async (req, res) => {
   try {
-    await Progress.update(
-      { unitsCount: 0 },
-      { where: { level: ["1", "2"] } }, // all rows, or leave as where: {}
-    );
+    const targets = await Target.findAll();
 
-    const updated = await Progress.findAll();
+    const result = [];
 
-    res.json(updated);
+    for (const target of targets) {
+      const sessions = await WorkSession.findAll({
+        where: {
+          status: "COMPLETED",
+          level: target.level,
+          endedRunAt: {
+            [Op.gte]: target.startDate,
+            [Op.lt]: target.endDate,
+          },
+        },
+      });
+
+      let total = 0;
+      const stationsMap = {};
+
+      sessions.forEach((s) => {
+        total += s.unitsCount;
+
+        stationsMap[s.station] = (stationsMap[s.station] || 0) + s.unitsCount;
+      });
+
+      result.push({
+        level: target.level,
+        target: target.value,
+        total,
+        percent: target.value ? (total / target.value) * 100 : 0,
+        stations: Object.entries(stationsMap).map(([station, units]) => ({
+          station,
+          units,
+          percent: target.value ? (units / target.value) * 100 : 0,
+        })),
+      });
+    }
+
+    res.json(result);
   } catch (err) {
-    console.error(err);
-    res.status(500).send(err.message);
+    console.error("SUMMARY ERROR:", err);
+    res.status(500).json({ error: err.message });
   }
 });
