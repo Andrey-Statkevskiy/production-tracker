@@ -26,10 +26,23 @@
 .progressContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 70%; /* remove/adjust it is not adaptive */
 }
 
+.progressBarsContainer {
+  width: 50%;
+  margin-top: 20px;
+  text-align: center;
+}
+
 /*Set Targets Helper Component*/
+.setTargetsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
 .setTargetsColumn {
   flex: 1;
@@ -52,7 +65,7 @@
 }
 
 /* Reset Progress Helper Component */
-
+/* 
 .resetProgressContainer {
   display: flex;
   flex-direction: column;
@@ -64,4 +77,64 @@
   font-size: 28px;
   font-weight: 600;
   margin-top: 3em;
+} */
+
+/* View All Users Component */
+
+.AllUsersMainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.usersContainer {
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.IndividualUserContainer {
+  border: solid 2px #0056A3;
+  flex: 1 1 10%;
+  max-width: 10%;
+  aspect-ratio: 1 / 1;
+  padding: 16px;
+  margin: 0 1px 10px 1px;
+  text-align: center;
+}
+
+.IndividualUserContainer img {
+  width: 100%;
+}
+
+/* View/Export Data */
+.filtersContainer {
+  text-align: center;
+}
+
+.filtersContainer input {
+  padding: 10px;
+  border: 1px solid #0056A3;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #0056A3
+}
+
+.filtersContainer input:focus {
+  background-color: #afdaff;
+  outline: none;
+}
+
+.exportOrGoBack {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.submitFilterOrClear {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

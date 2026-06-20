@@ -109,6 +109,7 @@ form div {
 .signInForm {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .signInForm input {
