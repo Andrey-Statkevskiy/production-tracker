@@ -1,48 +1,16 @@
-import React, { useState }  from 'react'
-import {connect} from 'react-redux'
-import ChangePassPage from './ChangePassPage'
+import "./LeaderHelpers/HomeLead.css";
+import React, { useState } from "react";
+import ControlPanel from "./ControlPanel";
+import ProgressBars from "./LeaderHelpers/ProgressBars";
 
-/**
- * COMPONENT
- */
-export const HomeTv = props => {
-  const {username} = props 
-  const [showChangePassForm, setShowChangePassForm] = useState(false);
-  const [changePassMsg, setChangePassMsg] = useState(null)
-  
-  const handleChangePass = (reason) => {
-    if (reason === 'pass changed') {
-    setChangePassMsg('Password changed successfully')
-  } else if (reason === 'pressed cancel') {
-    setChangePassMsg('Password change cancelled')
-  }
-    setTimeout(() => setChangePassMsg(null), 2000)
-    setShowChangePassForm(false)
-  }
-  return (
-    <div>
-      <h3>Welcome, {username}</h3>
-
-      <button onClick={() => setShowChangePassForm(true)}>
-        Change Password
-      </button>
-      {showChangePassForm && (
-        <ChangePassPage
-          onAnyBtnClick={handleChangePass}
-        />
-      )}
-      {changePassMsg && <div>{changePassMsg}</div>}
+export const HomeTv = () => (
+  <div className="homeLeadContainer">
+    <ControlPanel />
+    <div className="progressContainer">
+      <p className="columnTitle">Progress</p>
+      <ProgressBars />
     </div>
-  )
-}
+  </div>
+);
 
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    username: state.auth.username
-  }
-}
-
-export default connect(mapState)(HomeTv)
+export default HomeTv;

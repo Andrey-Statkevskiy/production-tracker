@@ -28,12 +28,34 @@
   flex-direction: column;
   align-items: center;
   width: 70%; /* remove/adjust it is not adaptive */
+  padding-right: 5em;
 }
 
 .progressBarsContainer {
-  width: 50%;
+  width: 80%; /* from the 70% of the overall progress */
   margin-top: 20px;
   text-align: center;
+}
+
+.progressBarsRefresh{
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+  align-items: center;
+}
+
+.progressBarsRefresh select{
+  padding: 10px;
+  background-color: #0056A3;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+.progressBarsRefresh select:hover{
+  background-color: #003f77;
 }
 
 /*Set Targets Helper Component*/
