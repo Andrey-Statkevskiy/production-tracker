@@ -40,7 +40,7 @@ const WorkScreen = ({ onFinish }) => {
           ▶
         </div>
         <div className="pdf-panel">
-          <iframe src="/Gratt,Katrin W2_2026-01-14.pdf" />
+          <iframe src="/drawer.pdf" />
         </div>
       </div>
     </>
